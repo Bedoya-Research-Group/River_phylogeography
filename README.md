@@ -5,5 +5,5 @@ River-weed phylogeography
 
 
 2. Index reference file
-`bwa index CRR103268.fasta`
+`bwa index CRR103268.fasta -b -t 4`
 
