@@ -1,6 +1,6 @@
-River-weed phylogeography
+Riverweed phylogeography
 
-##STEPS TO PREPARE REFERENCE GENOME
+## STEPS TO PREPARE REFERENCE GENOME
 
 
 1. Converted bam to fasta with samtools
