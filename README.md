@@ -15,7 +15,7 @@ River-weed phylogeography
 4. Convert SAM to BAM
 `samtools view -@ 20 -b SRR12956182_Mutile-pe.sam > SRR12956182_Mutile-pe.bam`
 
-5.Sort BAM
+5. Sort BAM
 `samtools sort -@ 20 -o SRR12956182_Mutile-pe.sorted01.bam SRR12956182_Mutile-pe.bam`
 
 6. bcftools pileup
