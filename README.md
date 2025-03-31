@@ -3,7 +3,7 @@ Riverweed phylogeography
 ## STEPS TO PREPARE REFERENCE GENOME
 
 
-1. Converted bam to fasta with samtools
+1. Convert BAM to fasta with samtools
 `samtools fasta CRR103268.bam > CRR103268.fasta`
 
 2. Index reference file
@@ -32,3 +32,5 @@ Riverweed phylogeography
 
 10. Mutate consensus
 `cat CRR103268.fasta | bcftools consensus -s SRR12956182_Mutile-pe.sorted01.bam -H R SRR12956182_Mutile.norm.filtered01.vcf.gz > CRR103268_01.fasta`
+
+11. Repeat 2 times
