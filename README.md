@@ -34,3 +34,11 @@ Riverweed phylogeography
 `cat CRR103268.fasta | bcftools consensus -s SRR12956182_Mutile-pe.sorted01.bam -H R SRR12956182_Mutile.norm.filtered01.vcf.gz > CRR103268_01.fasta`
 
 11. Repeat 2 times
+
+
+## Genome-skimming data
+
+
+1.Check Novogene sequence download
+
+`for dir in */; do   if [[ -f "$dir/MD5.txt" ]]; then     echo "Checking MD5 in $dir";     (cd "$dir" && md5sum -c MD5.txt);   else     echo "No MD5.txt found in $dir";   fi; done`
