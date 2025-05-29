@@ -40,5 +40,4 @@ Riverweed phylogeography
 
 
 1.Check Novogene sequence download
-
 `for dir in */; do   if [[ -f "$dir/MD5.txt" ]]; then     echo "Checking MD5 in $dir";     (cd "$dir" && md5sum -c MD5.txt);   else     echo "No MD5.txt found in $dir";   fi; done`
