@@ -60,3 +60,19 @@ Riverweed phylogeography
 3. Sort bam `bash bam_sort.sh`
 
 4. Extract contigs names (target sequence loci names) `bash mapped_contigs_names.sh`
+
+
+
+## 4. PLASTOME ASSEMBLY
+
+1. `bash getorganelle.sh`
+
+
+
+## 5. WHOLE GENOME DATA ANALYSIS
+
+1. Map reads to mutated reference genome `bash bwa-mem.sh`
+
+2. Convert sam to bam `bash samtobam.sh`
+
+3. Sort bam `bash bam_sort.sh`
