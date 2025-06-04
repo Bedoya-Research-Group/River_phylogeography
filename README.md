@@ -1,6 +1,6 @@
 Riverweed phylogeography
 
-## STEPS TO PREPARE REFERENCE GENOME
+## 1. PREPARING REFERENCE GENOME
 
 
 1. Convert BAM to fasta with samtools
@@ -36,8 +36,27 @@ Riverweed phylogeography
 11. Repeat 2 times
 
 
-## Genome-skimming data
+## 2. Genome-skimming data analysis
 
 
 1.Check Novogene sequence download
-`for dir in */; do   if [[ -f "$dir/MD5.txt" ]]; then     echo "Checking MD5 in $dir";     (cd "$dir" && md5sum -c MD5.txt);   else     echo "No MD5.txt found in $dir";   fi; done`
+`for dir in */; do   if [[ -f "$dir/MD5.txt" ]];` then     `echo "Checking MD5 in $dir";     (cd "$dir" && md5sum -c MD5.txt);   else     echo "No MD5.txt found in $dir";   fi; done`
+
+2. Check data quality `bash fastqc.sh`
+
+3. Trim reads `bash fastp.sh`
+
+4. Change names to correspond to voucher numbers and taxa in the study `bash name_change.sh` You will need the name_map.tsv file
+
+
+
+## 3. ASSEMBLY OF TE DATA FROM GENOME SKIMMING
+
+
+1. Map reads to Bedoya et al., 2021 target file ('Target_sequences.fasta') `bash bwa-mem.sh`
+
+2. Convert sam to bam `bash samtobam.sh`
+
+3. Sort bam `bash bam_sort.sh`
+
+4. Extract contigs names (target sequence loci names) `bash mapped_contigs_names.sh`
