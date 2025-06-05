@@ -63,6 +63,7 @@ Riverweed phylogeography
 
 5. Index bam `bash samtools_index.sh`
 
+6. Extract contigs from Target reference `bash extract_contigs.sh`
 
 
 ## 4. PLASTOME ASSEMBLY
