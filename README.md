@@ -65,6 +65,9 @@ Riverweed phylogeography
 
 6. Extract contigs from Target reference `bash extract_contigs.sh`
 
+7. Assemble scaffolds with SPAdes `bash assembly.sh`
+
+
 
 ## 4. PLASTOME ASSEMBLY
 
