@@ -61,7 +61,9 @@ Riverweed phylogeography
 
 4. Extract contigs names (target sequence loci names) `bash mapped_contigs_names.sh`
 
-5. Index bam `bash bwa_index.sh`
+5. Index bam `bash samtools_index.sh`
+
+
 
 ## 4. PLASTOME ASSEMBLY
 

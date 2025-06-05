@@ -2,5 +2,5 @@
 
 for infile in /home/abedoya/river_phylogeo/*-pe.sorted_TE.bam
         do
-        bwa index ${infile}
+        samtools index ${infile}
         done
