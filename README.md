@@ -19,21 +19,24 @@ Riverweed phylogeography
 `samtools sort -@ 20 -o SRR12956182_Mutile-pe.sorted01.bam SRR12956182_Mutile-pe.bam`
 
 6. bcftools pileup
+` bcftools mpileup -Ou -f CRR103268.fasta SRR12956182_Mutile-pe.sorted01.bam | bcftools call -mv -Oz -o SRR12956182_Mutile-pe.sorted01.bcf`
+
+7. Filter variants
 `bcftools view -Oz -i 'QUAL>20 || DP>5' SRR12956182_Mutile-pe.sorted01.bcf > SRR12956182_Mutile-pe.filtered01.vcf.gz`
 
-7. index
+8. index
 `tabix SRR12956182_Mutile-pe.filtered01.vcf.gz`
 
-8. Normalize
+9. Normalize
 `bcftools norm -f CRR103268.fasta -m +any SRR12956182_Mutile-pe.filtered01.vcf.gz -Oz -o SRR12956182_Mutile.norm.filtered01.vcf.gz`
 
-9. Index
+10. Index
 `tabix SRR12956182_Mutile.norm.filtered01.vcf.gz`
 
-10. Mutate consensus
+11. Mutate consensus
 `cat CRR103268.fasta | bcftools consensus -s SRR12956182_Mutile-pe.sorted01.bam -H R SRR12956182_Mutile.norm.filtered01.vcf.gz > CRR103268_01.fasta`
 
-11. Repeat 2 times
+12. Repeat 2 times
 
 
 ## 2. Genome-skimming data analysis
@@ -53,7 +56,7 @@ Riverweed phylogeography
 ## 3. ASSEMBLY OF TE DATA FROM GENOME SKIMMING
 
 
-1. Map reads to Bedoya et al., 2021 target file ('Target_sequences.fasta') `bash bwa-mem.sh`
+1. Map reads to Bedoya et al., 2021 target file ('Target_Sequences_songle_exon.fasta'; previously indexed) `bash bwa-mem.sh`
 
 2. Convert sam to bam `bash samtobam.sh`
 
@@ -69,10 +72,18 @@ Riverweed phylogeography
 
 
 
+Alternatively, run Hybpiper and the PPD. PPD:
+1. `bash putative_paralog/Step1.sh . namelist.txt`
+
 ## 4. PLASTOME ASSEMBLY
 
 1. `bash getorganelle.sh`
 
+2. Check assemblies in Bandage
+
+3. Rename *.fq files (`bash files_folders_name_changes.sh`) so they can be move to a separate folder for Plastome SNP calls
+
+4. Map reads and call SNPs like done with the mutate reference genome (above)
 
 
 ## 5. WHOLE GENOME DATA ANALYSIS
@@ -80,5 +91,8 @@ Riverweed phylogeography
 1. Map reads to mutated reference genome `bash bwa-mem.sh`
 
 2. Convert sam to bam `bash samtobam.sh`
+
+
+
 
 3. Sort bam `bash bam_sort.sh`
