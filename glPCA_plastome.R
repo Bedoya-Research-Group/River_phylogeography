@@ -2,7 +2,7 @@ library(adegenet)
 library(vcfR)
 library(ggplot2)
 
-setwd("/Users/abedoya/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/")
+setwd("/Users/abedoya/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/River_phylogeography/Data_plastome/")
 
 vcf <- read.vcfR("Marathrum_samples_filtered_Panama.vcf.recode.vcf")
 #Read as genlight object
