@@ -71,11 +71,11 @@ Riverweed phylogeography
 4.2. Convert sam to bam `bash samtobam.sh`
 
 4.3. Sort bam `bash bam_sort.sh`
-*****
+
 4.4. Extract contigs names (target sequence loci names) `bash mapped_contigs_names.sh`
 
 4.5. Index bam `bash samtools_index.sh`
-
+************
 4.6. Extract contigs from Target reference `bash extract_contigs.sh`
 
 4.7. Assemble scaffolds with SPAdes `bash assembly.sh`
