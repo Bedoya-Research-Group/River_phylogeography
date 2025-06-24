@@ -75,10 +75,12 @@ Riverweed phylogeography
 4.4. Extract contigs names (target sequence loci names) `bash mapped_contigs_names.sh`
 
 4.5. Index bam `bash samtools_index.sh`
-************
+
 4.6. Extract contigs from Target reference `bash extract_contigs.sh`
 
 4.7. Assemble scaffolds with SPAdes `bash assembly.sh`
+
+4.8 Extract the best contig `bash best_contig_extraction.sh`
 
 
 
