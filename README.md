@@ -69,6 +69,12 @@ Riverweed phylogeography
 4.1. Map reads to Bedoya et al., 2021 target file ('Target_Sequences_single_exon.fasta'; previously indexed) `bash bwa-mem.sh`
 
 4.2. Convert sam to bam `bash samtobam.sh`
+****************
+I am trying this alternative
+4.3 Extract mapped reads for each individual `extract_mapped_reads_per_individual.sh`
+
+4.4 
+***************
 
 4.3. Sort bam `bash bam_sort.sh`
 
@@ -80,8 +86,9 @@ Riverweed phylogeography
 
 4.7. Assemble scaffolds with SPAdes `bash assembly.sh`
 
-4.8 Extract the best contig `bash best_contig_extraction.sh`
+4.8. Extract the best contig `bash best_contig_extraction.sh`
 
+4.9. Replace reference with assembled contigs
 
 
 Alternatively, run Hybpiper and the PPD. PPD:
