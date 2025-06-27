@@ -59,10 +59,35 @@ Riverweed phylogeography
 
 3.2. Convert sam to bam `bash samtobam.sh` and sort bam `bam_sort.sh`
 
-3.3. Call SNPs
-`bcftools mpileup -Ou -f CRR103268_03_mutated.fasta *-pe.sorted.bam | bcftools call -mv -Oz -o all_samples_raw.vcf.gz`
-*****
+3.3. Call SNPs `bcftools mpileup -Ou -f CRR103268_03_mutated.fasta *-pe.sorted.bam | bcftools call -mv -Oz -o all_samples_raw.vcf.gz`
 
+3.4 Filter SNPs `vcftools --gzvcf all_samples_raw.vcf.gz --remove-indels --minQ 30 --minDP 20 --maf 0.05 --max-missing 0.80 --thin 10000 --recode --out all_samples_filtered.vcf.gz`
+
+3.5 Remove individuals with >50% missing data (88 indiv left) `vcftools --vcf all_samples_filtered.vcf.gz.recode.vcf --missing-indv --out missing_data_individuals` `vcftools --vcf all_samples_filtered.vcf.gz.recode.vcf --remove individuals_to_remove_from_all.txt --recode --recode-INFO-all --out all_samples_filtered_final`
+Step above performed hierarchically as stated in MS.
+
+For Marathrum all (87 indiv left):
+`vcftools --vcf all_samples_filtered.vcf.gz.recode.vcf --remove individuals_to_remove_from_marathrum.txt --max-missing 0.80 --recode --recode-INFO-all --out marathrum_samples_filtered_final`
+
+For Marathrum Panama (69 indiv left):
+`vcftools --vcf marathrum_samples_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_panama.txt --max-missing 0.80 --recode --recode-INFO-all --out marathrum_panama_filtered_final`
+
+For Colon Province (57 indiv left):
+`vcftools --vcf marathrum_panama_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_colon.txt --max-missing 0.80 --recode --recode-INFO-all --out marathrum_colon_filtered_final`
+
+For Chiriqui Province (12 indiv left):
+`vcftools --vcf marathrum_panama_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_chiriqui.txt --max-missing 0.80 --recode --recode-INFO-all --out marathrum_chiriqui_filtered_final`
+
+3.6 Convert vcf to plink:
+`vcftools --vcf each_vcf_above.vcf --plink --out each_vcf_above_plink`
+
+3.7 Convert binary to plink:
+`plink --file each_resulting_file_above_plink --out each_resulting_file_above_bin_plink --make-bed --noweb`
+
+3.8 Run admixture:
+
+`bash admixture.sh`
+*****
 
 ## 4. ASSEMBLY OF TE DATA FROM GENOME SKIMMING
 
@@ -71,9 +96,11 @@ Riverweed phylogeography
 4.2. Convert sam to bam `bash samtobam.sh`
 ****************
 I am trying this alternative
-4.3 Extract mapped reads for each individual `extract_mapped_reads_per_individual.sh`
+4.3 Extract mapped reads for each individual `bash extract_mapped_reads_per_individual.sh`
 
-4.4 
+4.4 Convert mapped BAMs to Fastq `bash mapped_bams2fastq.sh`
+
+4.5 
 ***************
 
 4.3. Sort bam `bash bam_sort.sh`
