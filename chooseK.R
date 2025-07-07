@@ -14,7 +14,7 @@ plot(data$clust, data$K, type = "p", pch = 19, col = "black",
      main = "Marathrum Panama")
 
 dev.off()
-#K=3
+#K=3-4
 
 ## Marathrum Colon
 K<-c(0.24466, 0.22261, 0.23011, 0.23899, 0.24901, 0.26789)
@@ -85,3 +85,64 @@ plot(data$clust, data$K, type = "p", pch = 19, col = "black",
      main = "Marathrum Cocle Norte River")
 dev.off()
 #K=1
+
+##################
+#### PLOTTING ####
+##################
+
+# Load required library
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+setwd("~/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/River_phylogeography/")
+# Read in the .Q file
+Q <- read.table("marathrum_panama_filtered_final_bin_plink.4.Q")  
+#Q <- read.table("marathrum_colon_filtered_final_bin_plink.3.Q")
+#Q <- read.table("marathrum_diego_filtered_final_bin_plink.1.Q")
+#Q <- read.table("marathrum_aguacate_filtered_final_bin_plink.1.Q")
+#Q <- read.table("marathrum_aguacate_filtered_final_bin_plink.2.Q")
+#Q <- read.table("marathrum_cocle_norte_filtered_final_bin_plink.1.Q")
+# Read PLINK .fam file to get individual IDs
+#fam <- read.table("marathrum_panama_filtered_final_bin_plink.fam", stringsAsFactors = FALSE)
+fam <- read.table("marathrum_panama_filtered_final_bin_plink.fam", stringsAsFactors = FALSE)
+sample_names <- fam$V2  
+
+# Add sample names to Q
+Q$Sample <- sample_names
+
+# Reshape to long format
+Q_long <- Q %>%
+  pivot_longer(cols = -Sample, names_to = "Ancestry", values_to = "Proportion")
+
+# Plot with sample names on x-axis
+ggplot(Q_long, aes(x = Sample, y = Proportion, fill = Ancestry)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+        panel.grid = element_blank()) +
+  xlab("Individuals") +
+  ylab("Ancestry Proportion") +
+  ggtitle("K = 2")
+
+# Read desired sample order
+#sample_order <- read.table("marathrum_panama_sample_order_stream.txt", stringsAsFactors = FALSE)$V1
+sample_order <- read.table("marathrum_panama_sample_order_stream.txt", stringsAsFactors = FALSE)$V1
+
+# Reorder the Q dataframe to match sample_order.txt
+Q <- Q %>% filter(Sample %in% sample_order)
+Q$Sample <- factor(Q$Sample, levels = sample_order)  # preserves the order in plots
+
+Q_long <- Q %>%
+  pivot_longer(cols = -Sample, names_to = "Ancestry", values_to = "Proportion")
+
+# Plot
+ggplot(Q_long, aes(x = Sample, y = Proportion, fill = Ancestry)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+        panel.grid = element_blank()) +
+  xlab("Individuals") +
+  ylab("Ancestry Proportion") +
+  ggtitle("K = 2")
+
