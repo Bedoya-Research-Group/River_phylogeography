@@ -165,3 +165,7 @@ Alternatively, run Hybpiper and the PPD. PPD:
 6.6. Plot results
 
 3. Sort bam `bash bam_sort.sh`
+
+## 7. Gene flow and genetic diversity across space
+
+See scripts in spatial_gene_flow_gendiv.R
