@@ -140,6 +140,16 @@ a_path_dist_matrix <- as.matrix(a_path)
 a_log_path_dist_matrix <- log(a_path_dist_matrix + 1)
 a_log_path_dist <- as.dist(a_log_path_dist_matrix)
 
+d_path <- read.csv("geo_dist_matrix_d.csv", row.names = 1)
+d_path_dist_matrix <- as.matrix(d_path)
+d_log_path_dist_matrix <- log(d_path_dist_matrix + 1)
+d_log_path_dist <- as.dist(d_log_path_dist_matrix)
+
+c_path <- read.csv("geo_dist_matrix_c.csv", row.names = 1)
+c_path_dist_matrix <- as.matrix(c_path)
+c_log_path_dist_matrix <- log(c_path_dist_matrix + 1)
+c_log_path_dist <- as.dist(c_log_path_dist_matrix)
+
 
 #Genetic distance matrices
 d_vcf <- read.vcfR("../marathrum_diego_filtered_final.recode.vcf")
@@ -155,13 +165,22 @@ c_genvcf <- vcfR2genlight(c_vcf)
 c_genetic_dist <- dist(c_genvcf, method = "euclidean")  # this gives a dist object
 
 #Mantel test
-ad_mantel_result <- mantel(d_genetic_dist, d_log_geo_dist, method = "pearson", permutations = 999)
+d_mantel_result <- mantel(d_genetic_dist, d_log_geo_dist, method = "pearson", permutations = 999)
 print(d_mantel_result)
 
-ac_mantel_result <- mantel(a_genetic_dist, a_log_geo_dist, method = "pearson", permutations = 999)
+a_mantel_result <- mantel(a_genetic_dist, a_log_geo_dist, method = "pearson", permutations = 999)
 print(a_mantel_result)
 
 c_mantel_result <- mantel(c_genetic_dist, c_log_geo_dist, method = "pearson", permutations = 999)
+print(c_mantel_result)
+
+d_mantel_result_path <- mantel(d_genetic_dist, d_log_path_dist, method = "pearson", permutations = 999)
+print(d_mantel_result)
+
+a_mantel_result_path <- mantel(a_genetic_dist, a_log_path_dist, method = "pearson", permutations = 999)
+print(a_mantel_result)
+
+c_mantel_result_path <- mantel(c_genetic_dist, c_log_path_dist, method = "pearson", permutations = 999)
 print(c_mantel_result)
 
 #####################
@@ -169,7 +188,7 @@ print(c_mantel_result)
 #####################
 
 gen_vec <- as.vector(c_genetic_dist)
-geo_vec <- as.vector(c_log_geo_dist)
+geo_vec <- as.vector(c_log_path_dist)
 
 # Combine into a data frame
 dist_df <- data.frame(
@@ -246,4 +265,13 @@ ggplot(dist_df, aes(x = Log_Geographic, y = Genetic)) +
     y = "Genetic Distance"
   )
 cor(dist_df$Genetic, dist_df$Log_Geographic, method = "pearson")
+
+
+#########################################################
+#######  Diversity Stats within and across rivers #######
+#########################################################
+
+
+
+
 
