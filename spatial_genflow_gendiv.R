@@ -109,7 +109,7 @@ cor(dist_df$Genetic, dist_df$Log_Geographic, method = "pearson")
 #####Repeat within each river######
 ###################################
 
-#Geograohic distance matrixes
+#Geographic distance matrices
 d_coords<-coords[1:26,]
 a_coords<-coords[27:46,]
 c_coords<-coords[47:57,]
@@ -126,8 +126,22 @@ c_geo_dist_matrix <- geodist(c_coords, measure = "geodesic")  # in meters
 c_log_geo_dist_matrix <- log(c_geo_dist_matrix + 1)
 c_log_geo_dist <- as.dist(c_log_geo_dist_matrix)
 
+############################################################
+##IF USING DISTANCES ESTIMATED FROM RIVER TRAJECTORY
+# Convert geodist objects to matrices, then to data frames
+c_geo_dist_df <- as.data.frame(as.matrix(c_geo_dist_matrix))
+# Save to CSV
+write.csv(c_geo_dist_df, file = "geo_dist_matrix_c.csv", quote = FALSE)
+#Modify to convert matrices into distances estimated from river trajectory per river
+# read matrices
 
-#Genetic distance matrixes
+a_path <- read.csv("geo_dist_matrix_a.csv", row.names = 1)
+a_path_dist_matrix <- as.matrix(a_path)
+a_log_path_dist_matrix <- log(a_path_dist_matrix + 1)
+a_log_path_dist <- as.dist(a_log_path_dist_matrix)
+
+
+#Genetic distance matrices
 d_vcf <- read.vcfR("../marathrum_diego_filtered_final.recode.vcf")
 d_genvcf <- vcfR2genlight(d_vcf)
 d_genetic_dist <- dist(d_genvcf, method = "euclidean")  # this gives a dist object
@@ -141,10 +155,10 @@ c_genvcf <- vcfR2genlight(c_vcf)
 c_genetic_dist <- dist(c_genvcf, method = "euclidean")  # this gives a dist object
 
 #Mantel test
-d_mantel_result <- mantel(d_genetic_dist, d_log_geo_dist, method = "pearson", permutations = 999)
+ad_mantel_result <- mantel(d_genetic_dist, d_log_geo_dist, method = "pearson", permutations = 999)
 print(d_mantel_result)
 
-a_mantel_result <- mantel(a_genetic_dist, a_log_geo_dist, method = "pearson", permutations = 999)
+ac_mantel_result <- mantel(a_genetic_dist, a_log_geo_dist, method = "pearson", permutations = 999)
 print(a_mantel_result)
 
 c_mantel_result <- mantel(c_genetic_dist, c_log_geo_dist, method = "pearson", permutations = 999)
@@ -156,6 +170,65 @@ print(c_mantel_result)
 
 gen_vec <- as.vector(c_genetic_dist)
 geo_vec <- as.vector(c_log_geo_dist)
+
+# Combine into a data frame
+dist_df <- data.frame(
+  Genetic = gen_vec,
+  Log_Geographic = geo_vec
+)
+
+
+ggplot(dist_df, aes(x = Log_Geographic, y = Genetic)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  theme_minimal() +
+  labs(
+    x = "ln(dij)",
+    y = "Genetic Distance"
+  )
+cor(dist_df$Genetic, dist_df$Log_Geographic, method = "pearson")
+
+
+####################################################
+#####Distances between adjacent rivers######
+####################################################
+
+#Geographic distances between A-D
+ad_coords<-coords[1:46,]
+ac_coords<-coords[27:57,]
+
+
+ad_geo_dist_matrix <- geodist(ad_coords, measure = "geodesic")  # in meters
+ad_log_geo_dist_matrix <- log(ad_geo_dist_matrix + 1)
+ad_log_geo_dist <- as.dist(ad_log_geo_dist_matrix)
+
+#Geographic distances between A-C
+ac_geo_dist_matrix <- geodist(ac_coords, measure = "geodesic")  # in meters
+ac_log_geo_dist_matrix <- log(ac_geo_dist_matrix + 1)
+ac_log_geo_dist <- as.dist(ac_log_geo_dist_matrix)
+
+#Genetic Distances
+ad_vcf <- read.vcfR("../marathrum_aguacate_diego_filtered_final.recode.vcf")
+ad_genvcf <- vcfR2genlight(ad_vcf)
+ad_genetic_dist <- dist(ad_genvcf, method = "euclidean")  # this gives a dist object
+
+ac_vcf <- read.vcfR("../marathrum_aguacate_cocle_filtered_final.recode.vcf")
+ac_genvcf <- vcfR2genlight(ac_vcf)
+ac_genetic_dist <- dist(ac_genvcf, method = "euclidean")  # this gives a dist object
+
+#Mantel test
+ad_mantel_result <- mantel(ad_genetic_dist, ad_log_geo_dist, method = "pearson", permutations = 999)
+print(ad_mantel_result)
+
+ac_mantel_result <- mantel(ac_genetic_dist, ac_log_geo_dist, method = "pearson", permutations = 999)
+print(ac_mantel_result)
+
+#####################
+####Plotting data####
+#####################
+
+gen_vec <- as.vector(ac_genetic_dist)
+geo_vec <- as.vector(ac_log_geo_dist)
 
 # Combine into a data frame
 dist_df <- data.frame(

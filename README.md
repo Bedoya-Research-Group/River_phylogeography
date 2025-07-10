@@ -92,6 +92,12 @@ For Rio Cocle del Norte (11 indiv left):
 For Chiriqui Province (12 indiv left):
 `vcftools --vcf marathrum_panama_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_chiriqui.txt --max-missing 0.95 --recode --recode-INFO-all --out marathrum_chiriqui_filtered_final`
 
+For Aguacate+Diego (46 individuals):
+`vcftools --vcf marathrum_colon_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_aguacate_diego.txt --max-missing 0.95 --recode --recode-INFO-all --out marathrum_aguacate_diego_filtered_final`
+
+For Aguacate+Cocle (31 individuals):
+`vcftools --vcf marathrum_colon_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_aguacate_cocle.txt --max-missing 0.95 --recode --recode-INFO-all --out marathrum_aguacate_cocle_filtered_final`
+
 3.6 Convert vcf to plink:
 `vcftools --vcf each_vcf_above.vcf --plink --out each_vcf_above_plink`
 
