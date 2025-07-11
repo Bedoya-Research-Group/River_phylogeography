@@ -5,8 +5,10 @@ library(geodist)
 library(vcfR)
 library(adegenet)
 library(ggplot2)
+library(hierfstat)
+library(ade4)
 
-setwd("~setwd("~setwd("~/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/River_phylogeography/")
+setwd("~/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/River_phylogeography/")
 coords <- read.csv("coordinates.csv", row.names = 1)
 
 #Calculate ln(dij) using geodesic distances
@@ -18,7 +20,7 @@ log_geo_dist <- as.dist(log_geo_dist_matrix)
 vcf <- read.vcfR("../marathrum_panama_filtered_final.recode.vcf")
 genvcf <- vcfR2genlight(vcf)
 
-genetic_dist <- dist(genvcf, method = "euclidean")  # this gives a dist object
+genetic_dist <- dist(genvcf, method = "euclidean")
 
 
 #Mantel test
@@ -55,6 +57,9 @@ cor(dist_df$Genetic, dist_df$Log_Geographic, method = "pearson")
 colon_coords <- coords[1:57,]
 chiriqui_coords<-coords[58:69,]
 
+individual_ids<-read.csv("colon_sample_ids.txt",head=F)
+rownames(colon_coords) <- individual_ids[1:57,]
+
 #Calculate ln(dij) using geodesic distances
 col_geo_dist_matrix <- geodist(colon_coords, measure = "geodesic")  # in meters
 col_log_geo_dist_matrix <- log(col_geo_dist_matrix + 1)
@@ -79,7 +84,6 @@ print(col_mantel_result)
 
 ch_mantel_result <- mantel(ch_genetic_dist, ch_log_geo_dist, method = "pearson", permutations = 999)
 print(ch_mantel_result)
-
 
 #####################
 ####Plotting data####
@@ -113,6 +117,7 @@ cor(dist_df$Genetic, dist_df$Log_Geographic, method = "pearson")
 d_coords<-coords[1:26,]
 a_coords<-coords[27:46,]
 c_coords<-coords[47:57,]
+pa_coords<-coords[58:67,]
 
 d_geo_dist_matrix <- geodist(d_coords, measure = "geodesic")  # in meters
 d_log_geo_dist_matrix <- log(d_geo_dist_matrix + 1)
@@ -126,10 +131,13 @@ c_geo_dist_matrix <- geodist(c_coords, measure = "geodesic")  # in meters
 c_log_geo_dist_matrix <- log(c_geo_dist_matrix + 1)
 c_log_geo_dist <- as.dist(c_log_geo_dist_matrix)
 
+pa_geo_dist_matrix <- geodist(pa_coords, measure = "geodesic")  # in meters
+pa_log_geo_dist_matrix <- log(pa_geo_dist_matrix + 1)
+pa_log_geo_dist <- as.dist(pa_log_geo_dist_matrix)
 ############################################################
 ##IF USING DISTANCES ESTIMATED FROM RIVER TRAJECTORY
 # Convert geodist objects to matrices, then to data frames
-c_geo_dist_df <- as.data.frame(as.matrix(c_geo_dist_matrix))
+#c_geo_dist_df <- as.data.frame(as.matrix(c_geo_dist_matrix))
 # Save to CSV
 write.csv(c_geo_dist_df, file = "geo_dist_matrix_c.csv", quote = FALSE)
 #Modify to convert matrices into distances estimated from river trajectory per river
@@ -164,6 +172,10 @@ c_vcf <- read.vcfR("../marathrum_cocle_norte_filtered_final.recode.vcf")
 c_genvcf <- vcfR2genlight(c_vcf)
 c_genetic_dist <- dist(c_genvcf, method = "euclidean")  # this gives a dist object
 
+pa_vcf <- read.vcfR("../marathrum_paraiso_filtered_final.recode.vcf")
+pa_genvcf <- vcfR2genlight(pa_vcf)
+pa_genetic_dist <- dist(pa_genvcf, method = "euclidean")  # this gives a dist object
+
 #Mantel test
 d_mantel_result <- mantel(d_genetic_dist, d_log_geo_dist, method = "pearson", permutations = 999)
 print(d_mantel_result)
@@ -174,6 +186,9 @@ print(a_mantel_result)
 c_mantel_result <- mantel(c_genetic_dist, c_log_geo_dist, method = "pearson", permutations = 999)
 print(c_mantel_result)
 
+pa_mantel_result <- mantel(pa_genetic_dist, pa_log_geo_dist, method = "pearson", permutations = 999)
+print(pa_mantel_result)
+
 d_mantel_result_path <- mantel(d_genetic_dist, d_log_path_dist, method = "pearson", permutations = 999)
 print(d_mantel_result)
 
@@ -183,12 +198,16 @@ print(a_mantel_result)
 c_mantel_result_path <- mantel(c_genetic_dist, c_log_path_dist, method = "pearson", permutations = 999)
 print(c_mantel_result)
 
+#Cannot do for Paraiso because of damn building and lots of modification to the land that has impacted the course of the river
+#pa_mantel_result_path <- mantel(pa_genetic_dist, pa_log_path_dist, method = "pearson", permutations = 999)
+#print(pa_mantel_result)
+
 #####################
 ####Plotting data####
 #####################
 
-gen_vec <- as.vector(c_genetic_dist)
-geo_vec <- as.vector(c_log_path_dist)
+gen_vec <- as.vector(pa_genetic_dist)
+geo_vec <- as.vector(pa_log_geo_dist)
 
 # Combine into a data frame
 dist_df <- data.frame(
@@ -208,15 +227,270 @@ ggplot(dist_df, aes(x = Log_Geographic, y = Genetic)) +
 cor(dist_df$Genetic, dist_df$Log_Geographic, method = "pearson")
 
 
+
+####################################################################
+###To test if genetic distance is stronger within or across rivers##
+########(as a proxy for dispersal within or across rivers)##########
+####################################################################
+
+#all
+#Calculate ln(dij) using geodesic distances
+
+individual_ids_panama<-read.csv("panama_sample_ids.txt",head=F)
+rownames(coords) <- individual_ids_panama[,]
+geo_dist_matrix <- geodist(coords, measure = "geodesic")  # in meters
+log_geo_dist_matrix <- log(geo_dist_matrix + 1)
+rownames(log_geo_dist_matrix) <- rownames(coords)
+colnames(log_geo_dist_matrix) <- rownames(coords)
+log_geo_dist <- as.dist(log_geo_dist_matrix)
+
+#To add same labels to the genetic matrix:
+individual_ids_panama <- individual_ids_panama$V1
+pa_genetic_mat <- as.matrix(genetic_dist)
+rownames(pa_genetic_mat) <- individual_ids_panama
+colnames(pa_genetic_mat) <- individual_ids_panama
+pa_genetic_dist <- as.dist(pa_genetic_mat)
+
+#names(river_labels) <- individual_ids
+
+individuals <- labels(pa_genetic_dist)
+
+river <- ifelse(grepl("Diego", individuals), "Diego",
+                ifelse(grepl("Aguacate", individuals), "Aguacate",
+                       ifelse(grepl("Cocle", individuals), "Cocle",
+                              ifelse(grepl("Paraiso", individuals), "Paraiso",NA))))
+
+stopifnot(all(labels(pa_genetic_dist) == labels(log_geo_dist))) #checking order in geo and gen distances matrices is the same
+
+###########
+#Mantel test across all panama(repeat from above but here for clarity)
+###########
+
+#mantel_overall <- mantel(pa_genetic_dist, log_geo_dist, method = "pearson", permutations = 999)
+#print(mantel_overall)
+
+# Function to extract and test per river
+#mantel_within_river <- function(river_name) {
+#  inds <- individuals[river == river_name]
+#  gen_sub <- as.dist(as.matrix(pa_genetic_dist)[inds, inds])
+#  geo_sub <- as.dist(as.matrix(log_geo_dist)[inds, inds])
+#  mantel(gen_sub, geo_sub, method = "pearson", permutations = 999)
+#}
+
+#mantel_diego <- mantel_within_river("Diego")
+#mantel_aguacate <- mantel_within_river("Aguacate")
+#mantel_cocle <- mantel_within_river("Cocle")
+#mantel_paraiso <- mantel_within_river("Paraiso")
+
+#print(mantel_diego)
+#print(mantel_aguacate)
+#print(mantel_cocle)
+#print(mantel_paraiso)
+
+# River identity dissimilarity matrix: 0 = same river, 1 = different
+river_matrix <- outer(river, river, FUN = function(x, y) as.numeric(x != y))
+river_dist <- as.dist(river_matrix)
+
+# Partial Mantel test
+partial_mantel <- mantel.partial(pa_genetic_dist, log_geo_dist, river_dist, method = "pearson", permutations = 999)
+print(partial_mantel)
+
+##Plotting
+# Create pairwise comparison data frame
+plot_df <- data.frame(
+  GeneticDist = as.vector(as.matrix(pa_genetic_dist)),
+  GeoDist = as.vector(as.matrix(log_geo_dist)),
+  River1 = rep(river, each = length(river)),
+  River2 = rep(river, times = length(river))
+)
+
+# Label comparisons
+plot_df$Comparison <- ifelse(plot_df$River1 == plot_df$River2, "Within", "Between")
+
+# Plot: color by Within vs. Between
+ggplot(plot_df, aes(x = GeoDist, y = GeneticDist, color = Comparison)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("Within" = "grey", "Between" = "black")) +
+  labs(x = "Geographic Distance (log meters)",
+       y = "Genetic Distance (Euclidean)") +
+  theme_minimal() +
+  theme(legend.title = element_blank())
+#########################
+##Colon
+rownames(col_log_geo_dist_matrix) <- rownames(colon_coords)
+colnames(col_log_geo_dist_matrix) <- rownames(colon_coords)
+
+col_log_geo_dist <- as.dist(col_log_geo_dist_matrix)
+
+#To add same labels to the genetic matrix:
+individual_ids <- individual_ids$V1
+col_genetic_mat <- as.matrix(col_genetic_dist)
+rownames(col_genetic_mat) <- individual_ids
+colnames(col_genetic_mat) <- individual_ids
+col_genetic_dist <- as.dist(col_genetic_mat)
+
+#names(river_labels) <- individual_ids
+
+individuals <- labels(col_genetic_dist)
+
+river <- ifelse(grepl("Diego", individuals), "Diego",
+                ifelse(grepl("Aguacate", individuals), "Aguacate",
+                       ifelse(grepl("Cocle", individuals), "Cocle", NA)))
+
+stopifnot(all(labels(col_genetic_dist) == labels(col_log_geo_dist))) #checking order in geo and gen distances matrices is the same
+
+#Mantel test across all colon(repeat from above but here for clarity)
+mantel_overall <- mantel(col_genetic_dist, col_log_geo_dist, method = "pearson", permutations = 999)
+
+# Function to extract and test per river
+mantel_within_river <- function(river_name) {
+  inds <- individuals[river == river_name]
+  gen_sub <- as.dist(as.matrix(col_genetic_dist)[inds, inds])
+  geo_sub <- as.dist(as.matrix(col_log_geo_dist)[inds, inds])
+  mantel(gen_sub, geo_sub, method = "pearson", permutations = 999)
+}
+
+#mantel_diego <- mantel_within_river("Diego")
+#mantel_aguacate <- mantel_within_river("Aguacate")
+#mantel_cocle <- mantel_within_river("Cocle")
+
+#print(mantel_diego)
+#print(mantel_aguacate)
+#print(mantel_cocle)
+
+# River identity dissimilarity matrix: 0 = same river, 1 = different
+river_matrix <- outer(river, river, FUN = function(x, y) as.numeric(x != y))
+river_dist <- as.dist(river_matrix)
+
+# Partial Mantel test
+partial_mantel <- mantel.partial(col_genetic_dist, col_log_geo_dist, river_dist, method = "pearson", permutations = 999)
+print(partial_mantel)
+
+##Plotting
+# Create pairwise comparison data frame
+plot_df <- data.frame(
+  GeneticDist = as.vector(as.matrix(col_genetic_dist)),
+  GeoDist = as.vector(as.matrix(col_log_geo_dist)),
+  River1 = rep(river, each = length(river)),
+  River2 = rep(river, times = length(river))
+)
+
+# Label comparisons
+plot_df$Comparison <- ifelse(plot_df$River1 == plot_df$River2, "Within", "Between")
+
+# Plot: color by Within vs. Between
+ggplot(plot_df, aes(x = GeoDist, y = GeneticDist, color = Comparison)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("Within" = "grey", "Between" = "black")) +
+  labs(x = "Geographic Distance (log meters)",
+       y = "Genetic Distance (Euclidean)") +
+  theme_minimal() +
+  theme(legend.title = element_blank())
+
+##Chiriqui
+rownames(ch_log_geo_dist_matrix) <- rownames(chiriqui_coords)
+colnames(ch_log_geo_dist_matrix) <- rownames(chiriqui_coords)
+
+ch_log_geo_dist <- as.dist(ch_log_geo_dist_matrix)
+ch_mat <- as.matrix(ch_log_geo_dist)
+
+current_names <- rownames(ch_mat) #current names
+# Modify the last two
+current_names[(length(current_names)-1):length(current_names)] <- c("Piedra_01", "Piedra_02")
+# Apply new names
+rownames(ch_mat) <- colnames(ch_mat) <- current_names
+
+#To add same labels to the genetic matrix:
+individual_ids_chiriqui <- c("Paraiso_01","Paraiso_02","Paraiso_03","Paraiso_04",
+                             "Paraiso_05","Paraiso_06","Paraiso_07","Paraiso_08",
+                             "Paraiso_09","Paraiso_10","Piedra_01","Piedra_02")
+ch_genetic_mat <- as.matrix(ch_genetic_dist)
+rownames(ch_genetic_mat) <- individual_ids_chiriqui
+colnames(ch_genetic_mat) <- individual_ids_chiriqui
+ch_genetic_dist <- as.dist(ch_genetic_mat)
+
+ch_log_geo_dist <- as.dist(ch_mat) #Convert back to dist object
+#names(river_labels) <- individual_ids
+
+individuals <- labels(ch_genetic_dist)
+
+river <- ifelse(grepl("Paraiso", individuals), "Paraiso",
+                ifelse(grepl("Piedra", individuals), "Piedra", NA))
+
+stopifnot(all(labels(ch_genetic_dist) == labels(ch_log_geo_dist))) #checking order in geo and gen distances matrices is the same
+
+# Function to extract and test per river
+mantel_within_river <- function(river_name) {
+  inds <- individuals[river == river_name]
+  gen_sub <- as.dist(as.matrix(ch_genetic_dist)[inds, inds])
+  geo_sub <- as.dist(as.matrix(ch_log_geo_dist)[inds, inds])
+  mantel(gen_sub, geo_sub, method = "pearson", permutations = 999)
+}
+
+#mantel_diego <- mantel_within_river("Diego")
+#mantel_aguacate <- mantel_within_river("Aguacate")
+#mantel_cocle <- mantel_within_river("Cocle")
+
+#print(mantel_diego)
+#print(mantel_aguacate)
+#print(mantel_cocle)
+
+# River identity dissimilarity matrix: 0 = same river, 1 = different
+river_matrix <- outer(river, river, FUN = function(x, y) as.numeric(x != y))
+river_dist <- as.dist(river_matrix)
+
+# Partial Mantel test
+partial_mantel <- mantel.partial(ch_genetic_dist, ch_log_geo_dist, river_dist, method = "pearson", permutations = 999)
+print(partial_mantel)
+
+##Plotting
+# Create pairwise comparison data frame
+plot_df <- data.frame(
+  GeneticDist = as.vector(as.matrix(ch_genetic_dist)),
+  GeoDist = as.vector(as.matrix(ch_log_geo_dist)),
+  River1 = rep(river, each = length(river)),
+  River2 = rep(river, times = length(river))
+)
+
+# Label comparisons
+plot_df$Comparison <- ifelse(plot_df$River1 == plot_df$River2, "Within", "Between")
+
+# Plot: color by Within vs. Between
+ggplot(plot_df, aes(x = GeoDist, y = GeneticDist, color = Comparison)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("Within" = "grey", "Between" = "black")) +
+  labs(x = "Geographic Distance (log meters)",
+       y = "Genetic Distance (Euclidean)") +
+  theme_minimal() +
+  theme(legend.title = element_blank())
+
+
+#plot_df <- data.frame(
+#  GeneticDist = as.vector(as.matrix(col_genetic_dist)),
+#  GeoDist = as.vector(as.matrix(col_log_geo_dist)),
+#  River1 = rep(river, each = length(river)),
+#  River2 = rep(river, times = length(river))
+#)
+
+#plot_df$Comparison <- ifelse(plot_df$River1 == plot_df$River2, plot_df$River1, "Between")
+
+#ggplot(plot_df[plot_df$Comparison != "Between",], aes(x = GeoDist, y = GeneticDist, color = Comparison)) +
+#  geom_point(alpha = 0.5) +
+#  geom_smooth(method = "lm") +
+#  theme_minimal()
+
+####################################################
+######Doing the same between adjacent rivers########
 ####################################################
 #####Distances between adjacent rivers######
 ####################################################
-
-#Geographic distances between A-D
 ad_coords<-coords[1:46,]
 ac_coords<-coords[27:57,]
 
-
+#Geographic distances between A-D
 ad_geo_dist_matrix <- geodist(ad_coords, measure = "geodesic")  # in meters
 ad_log_geo_dist_matrix <- log(ad_geo_dist_matrix + 1)
 ad_log_geo_dist <- as.dist(ad_log_geo_dist_matrix)
@@ -226,7 +500,7 @@ ac_geo_dist_matrix <- geodist(ac_coords, measure = "geodesic")  # in meters
 ac_log_geo_dist_matrix <- log(ac_geo_dist_matrix + 1)
 ac_log_geo_dist <- as.dist(ac_log_geo_dist_matrix)
 
-#Genetic Distances
+##Genetic Distances
 ad_vcf <- read.vcfR("../marathrum_aguacate_diego_filtered_final.recode.vcf")
 ad_genvcf <- vcfR2genlight(ad_vcf)
 ad_genetic_dist <- dist(ad_genvcf, method = "euclidean")  # this gives a dist object
@@ -235,43 +509,215 @@ ac_vcf <- read.vcfR("../marathrum_aguacate_cocle_filtered_final.recode.vcf")
 ac_genvcf <- vcfR2genlight(ac_vcf)
 ac_genetic_dist <- dist(ac_genvcf, method = "euclidean")  # this gives a dist object
 
-#Mantel test
-ad_mantel_result <- mantel(ad_genetic_dist, ad_log_geo_dist, method = "pearson", permutations = 999)
-print(ad_mantel_result)
+##Steps for partial mantel
+  ##AD
+rownames(ad_log_geo_dist_matrix) <- rownames(colon_coords[1:46,])
+colnames(ad_log_geo_dist_matrix) <- rownames(colon_coords[1:46,])
 
-ac_mantel_result <- mantel(ac_genetic_dist, ac_log_geo_dist, method = "pearson", permutations = 999)
-print(ac_mantel_result)
+ad_log_geo_dist <- as.dist(ad_log_geo_dist_matrix)
 
-#####################
-####Plotting data####
-#####################
+  ##AC
+rownames(ac_log_geo_dist_matrix) <- rownames(colon_coords[27:57,])
+colnames(ac_log_geo_dist_matrix) <- rownames(colon_coords[27:57,])
 
-gen_vec <- as.vector(ac_genetic_dist)
-geo_vec <- as.vector(ac_log_geo_dist)
+ac_log_geo_dist <- as.dist(ac_log_geo_dist_matrix)
 
-# Combine into a data frame
-dist_df <- data.frame(
-  Genetic = gen_vec,
-  Log_Geographic = geo_vec
+#To add same labels to the genetic matrix:
+  
+  ##AD
+ad_individual_ids <- individual_ids[1:46]
+ad_genetic_mat <- as.matrix(ad_genetic_dist)
+rownames(ad_genetic_mat) <- ad_individual_ids
+colnames(ad_genetic_mat) <- ad_individual_ids
+ad_genetic_dist <- as.dist(ad_genetic_mat)
+
+#names(river_labels) <- individual_ids
+individuals <- labels(ad_genetic_dist)
+
+river <- ifelse(grepl("Diego", individuals), "Diego",
+                ifelse(grepl("Aguacate", individuals), "Aguacate", NA))
+
+stopifnot(all(labels(ad_genetic_dist) == labels(ad_log_geo_dist))) #checking order in geo and gen distances matrices is the same
+
+  ##AC
+ac_individual_ids <- individual_ids[27:57]
+ac_genetic_mat <- as.matrix(ac_genetic_dist)
+rownames(ac_genetic_mat) <- ac_individual_ids
+colnames(ac_genetic_mat) <- ac_individual_ids
+ac_genetic_dist <- as.dist(ac_genetic_mat)
+
+###########################################
+  ##AD
+individuals <- labels(ad_genetic_dist)
+
+river <- ifelse(grepl("Diego", individuals), "Diego",
+                ifelse(grepl("Aguacate", individuals), "Aguacate", NA))
+
+stopifnot(all(labels(ad_genetic_dist) == labels(ad_log_geo_dist))) #checking order in geo and gen distances matrices is the same
+
+# Function to extract and test per river
+mantel_within_river <- function(river_name) {
+  inds <- individuals[river == river_name]
+  gen_sub <- as.dist(as.matrix(ad_genetic_dist)[inds, inds])
+  geo_sub <- as.dist(as.matrix(ad_log_geo_dist)[inds, inds])
+  mantel(gen_sub, geo_sub, method = "pearson", permutations = 999)
+}
+
+# River identity dissimilarity matrix: 0 = same river, 1 = different
+river_matrix <- outer(river, river, FUN = function(x, y) as.numeric(x != y))
+river_dist <- as.dist(river_matrix)
+###########################################
+  ##AC
+individuals <- labels(ac_genetic_dist)
+
+river <- ifelse(grepl("Aguacate", individuals), "Aguacate",
+                ifelse(grepl("Cocle", individuals), "Cocle", NA))
+
+stopifnot(all(labels(ac_genetic_dist) == labels(ac_log_geo_dist))) #checking order in geo and gen distances matrices is the same
+
+# Function to extract and test per river
+mantel_within_river <- function(river_name) {
+  inds <- individuals[river == river_name]
+  gen_sub <- as.dist(as.matrix(ac_genetic_dist)[inds, inds])
+  geo_sub <- as.dist(as.matrix(ac_log_geo_dist)[inds, inds])
+  mantel(gen_sub, geo_sub, method = "pearson", permutations = 999)
+}
+
+# River identity dissimilarity matrix: 0 = same river, 1 = different
+river_matrix <- outer(river, river, FUN = function(x, y) as.numeric(x != y))
+river_dist <- as.dist(river_matrix)
+
+###########################################
+# Partial Mantel test
+  ##AD
+partial_mantel <- mantel.partial(ad_genetic_dist, ad_log_geo_dist, river_dist, method = "pearson", permutations = 999)
+print(partial_mantel)
+
+  ##AC
+partial_mantel <- mantel.partial(ac_genetic_dist, ac_log_geo_dist, river_dist, method = "pearson", permutations = 999)
+print(partial_mantel)
+
+##Plotting
+
+########################
+  ##AD
+# Create pairwise comparison data frame
+plot_df <- data.frame(
+  GeneticDist = as.vector(as.matrix(ad_genetic_dist)),
+  GeoDist = as.vector(as.matrix(ad_log_geo_dist)),
+  River1 = rep(river, each = length(river)),
+  River2 = rep(river, times = length(river))
 )
 
+# Label comparisons
+plot_df$Comparison <- ifelse(plot_df$River1 == plot_df$River2, "Within", "Between")
 
-ggplot(dist_df, aes(x = Log_Geographic, y = Genetic)) +
-  geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
+# Plot: color by Within vs. Between
+ggplot(plot_df, aes(x = GeoDist, y = GeneticDist, color = Comparison)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("Within" = "grey", "Between" = "black")) +
+  labs(x = "Geographic Distance (log meters)",
+       y = "Genetic Distance (Euclidean)") +
   theme_minimal() +
-  labs(
-    x = "ln(dij)",
-    y = "Genetic Distance"
-  )
-cor(dist_df$Genetic, dist_df$Log_Geographic, method = "pearson")
+  theme(legend.title = element_blank())
 
+########################
+  ##AC
+# Create pairwise comparison data frame
+plot_df <- data.frame(
+  GeneticDist = as.vector(as.matrix(ac_genetic_dist)),
+  GeoDist = as.vector(as.matrix(ac_log_geo_dist)),
+  River1 = rep(river, each = length(river)),
+  River2 = rep(river, times = length(river))
+)
+
+# Label comparisons
+plot_df$Comparison <- ifelse(plot_df$River1 == plot_df$River2, "Within", "Between")
+
+# Plot: color by Within vs. Between
+ggplot(plot_df, aes(x = GeoDist, y = GeneticDist, color = Comparison)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("Within" = "grey", "Between" = "black")) +
+  labs(x = "Geographic Distance (log meters)",
+       y = "Genetic Distance (Euclidean)") +
+  theme_minimal() +
+  theme(legend.title = element_blank())
+
+######################
+#Plotting only the "between" for clarity
+plot_df_between <- subset(plot_df, Comparison == "Between")
+
+# Plot only the between-river points
+ggplot(plot_df_between, aes(x = GeoDist, y = GeneticDist)) +
+  geom_point(alpha = 0.6, color = "black") +
+  geom_smooth(method = "lm", color = "black", se = FALSE) +
+  labs(title = "Genetic vs Geographic Distance (Between Rivers Only)",
+       x = "Geographic Distance (log meters)",
+       y = "Genetic Distance (Euclidean)") +
+  theme_minimal()
 
 #########################################################
 #######  Diversity Stats within and across rivers #######
 #########################################################
+setwd("~/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/")
+genind_obj <- vcfR2genind(col_vcf)
+
+#Populations assignment
+
+pop(genind_obj) <- factor(c(
+  rep("Diego_down", 9),
+  rep("Diego_mid", 7),
+  rep("Diego_up", 10),
+  rep("Aguacate_down", 8),
+  rep("Aguacate_mid", 5),
+  rep("Aguacate_up", 7),
+  rep("Cocle_up", 5),
+  rep("Cocle_down", 6)
+))
+
+geno <- tab(genind_obj, NA.method = "mean")
+
+# Function to calculate Ho for one individual
+calculate_Ho <- function(row) {
+  het_count <- 0
+  for (i in seq(1, ncol(geno), by = 2)) {
+    alleles <- row[i:(i + 1)]
+    if (!any(is.na(alleles)) && alleles[1] != alleles[2]) {
+      het_count <- het_count + 1
+    }
+  }
+  het_count
+}
+
+#Calculate Ho across individuals
+ho_individual <- apply(geno, 1, calculate_Ho)
+
+#Combine with population info
+df_ho <- data.frame(
+  Individual = indNames(genind_obj),
+  Population = pop(genind_obj),
+  Ho = ho_individual
+)
 
 
+##Summarize average and SD per pop
+# Summarize average and standard deviation of Ho per population
+ho_summary <- df_ho %>%
+  group_by(Population) %>%
+  summarise(
+    Mean_Ho = mean(Ho, na.rm = TRUE),
+    SD_Ho = sd(Ho, na.rm = TRUE),
+    N = n()
+  )
 
+# Print the summary table
+print(ho_summary)
 
-
+#Plot
+ggplot(df_ho, aes(x = Population, y = Ho, fill = Population)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(y = "Observed Heterozygosity (Ho)", title = "Per-Individual Heterozygosity by Population") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
