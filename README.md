@@ -126,7 +126,9 @@ I am trying this alternative
 
 4.4 Convert mapped BAMs to Fastq `bash mapped_bams2fastq.sh`
 
-4.5 
+4.5 De novo assemble `bash assembly.sh`
+
+4.6
 ***************
 
 4.3. Sort bam `bash bam_sort.sh`
