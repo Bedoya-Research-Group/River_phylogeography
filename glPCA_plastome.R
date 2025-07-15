@@ -56,7 +56,7 @@ pca_table <- pca_scores[, c("ind", "pop", "PC1", "PC2", "PC3")]
 pca_table
 
 ##################
-#######COCLE######
+#######COLON######
 ##################
 
 vcf2 <- read.vcfR("Marathrum_samples_filtered_Cocle.vcf.recode.vcf")

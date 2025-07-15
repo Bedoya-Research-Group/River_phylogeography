@@ -101,6 +101,9 @@ For Aguacate+Diego (46 individuals):
 For Aguacate+Cocle (31 individuals):
 `vcftools --vcf marathrum_colon_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_aguacate_cocle.txt --max-missing 0.95 --recode --recode-INFO-all --out marathrum_aguacate_cocle_filtered_final`
 
+For Diversity stats (gene flow within rivers) (74 indiv left):
+`vcftools --vcf marathrum_panama_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_diversity.txt --max-missing 0.95 --recode --recode-INFO-all --out marathrum4diversity_stats`
+
 3.6 Convert vcf to plink:
 `vcftools --vcf each_vcf_above.vcf --plink --out each_vcf_above_plink`
 
