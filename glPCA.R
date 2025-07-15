@@ -6,7 +6,7 @@ setwd("/Users/abedoya/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/
 
 vcf_plastome <- read.vcfR("Marathrum_samples_filtered_Panama.vcf.recode.vcf")
 vcf_nuclear_panama<-read.vcfR("../../marathrum_panama_filtered_final.recode.vcf")
-vcf<-read.vcfR("../../marathrum_colon_filtered_final.recode.vcf")
+vcf_nuclear_colon<-read.vcfR("../../marathrum_colon_filtered_final.recode.vcf")
 #Read as genlight object
 genlight_obj <- vcfR2genlight(vcf)
 
@@ -63,6 +63,15 @@ pca_table <- pca_scores[, c("ind", "pop", "PC1", "PC2", "PC3")]
 
 pca_table
 
+# Total variance
+total_var <- sum(pca_result$eig)
+
+# Variance explained per PC (as percentages)
+var_explained <- 100 * pca_result$eig / total_var
+
+# Print first few PCs' variance explained
+round(var_explained[1:10], 2)
+
 ##################
 #######COLON######
 ##################
@@ -115,3 +124,13 @@ ggplot(pca_scores, aes(x = PC1, y = PC2, color = pop)) +
 pca_table <- pca_scores[, c("ind", "pop", "PC1", "PC2", "PC3")]
 
 pca_table
+
+# Total variance
+total_var <- sum(pca_result$eig)
+
+# Variance explained per PC (as percentages)
+var_explained <- 100 * pca_result$eig / total_var
+
+# Print first few PCs' variance explained
+round(var_explained[1:10], 2)
+
