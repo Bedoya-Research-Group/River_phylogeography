@@ -4,7 +4,9 @@ library(ggplot2)
 
 setwd("/Users/abedoya/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/River_phylogeography/Data_plastome/")
 
-vcf <- read.vcfR("Marathrum_samples_filtered_Panama.vcf.recode.vcf")
+vcf_plastome <- read.vcfR("Marathrum_samples_filtered_Panama.vcf.recode.vcf")
+vcf_nuclear_panama<-read.vcfR("../../marathrum_panama_filtered_final.recode.vcf")
+vcf<-read.vcfR("../../marathrum_colon_filtered_final.recode.vcf")
 #Read as genlight object
 genlight_obj <- vcfR2genlight(vcf)
 
@@ -25,6 +27,12 @@ pop_vector <- c(
   rep("Pi", 2)
 )
 
+##for colon
+#pop_vector <- c(
+#  rep("D", 26),
+#  rep("A", 20),
+#  rep("C", 11)
+#)
 
 #Assign pop vector to genlight object and check
 pop(genlight_obj) <- pop_vector
