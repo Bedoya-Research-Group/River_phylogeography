@@ -662,8 +662,9 @@ ggplot(plot_df_between, aes(x = GeoDist, y = GeneticDist)) +
 #######  Diversity Stats within and across rivers #######
 #########################################################
 setwd("~/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/")
-genind_obj <- vcfR2genind(col_vcf)
-
+#genind_obj <- vcfR2genind(col_vcf)
+vcf_stats <- read.vcfR("marathrum4diversity_stats.recode.vcf")
+genind_obj <- vcfR2genind(vcf_stats)
 #Populations assignment
 
 pop(genind_obj) <- factor(c(
@@ -673,8 +674,8 @@ pop(genind_obj) <- factor(c(
   rep("Aguacate_down", 8),
   rep("Aguacate_mid", 5),
   rep("Aguacate_up", 7),
-  rep("Cocle_up", 5),
-  rep("Cocle_down", 6)
+  rep("Paraiso_up", 5),
+  rep("Paraiso_down", 5)
 ))
 
 geno <- tab(genind_obj, NA.method = "mean")
@@ -701,7 +702,11 @@ df_ho <- data.frame(
   Ho = ho_individual
 )
 
-
+df_ho$Population <- factor(df_ho$Population, levels = c(
+  "Diego_up", "Diego_mid", "Diego_down",
+  "Aguacate_up", "Aguacate_mid", "Aguacate_down",
+  "Paraiso_up", "Paraiso_down"  # no mid for Paraiso
+))
 ##Summarize average and SD per pop
 # Summarize average and standard deviation of Ho per population
 ho_summary <- df_ho %>%
@@ -721,3 +726,4 @@ ggplot(df_ho, aes(x = Population, y = Ho, fill = Population)) +
   theme_minimal() +
   labs(y = "Observed Heterozygosity (Ho)", title = "Per-Individual Heterozygosity by Population") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
