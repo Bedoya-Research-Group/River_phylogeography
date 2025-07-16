@@ -128,7 +128,8 @@ I am trying this alternative
 
 4.5 De novo assemble `bash assembly.sh`
 
-4.6
+4.6 For each individual, map reads to the resulting scaffolds (previously indexed) `bash mapping_round2.sh`
+
 ***************
 
 4.3. Sort bam `bash bam_sort.sh`
