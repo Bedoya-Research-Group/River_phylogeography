@@ -18,6 +18,7 @@ log_geo_dist <- as.dist(log_geo_dist_matrix)
 
 #Calculate Euclidean genetic distances across all individual pairs
 vcf <- read.vcfR("../marathrum_panama_filtered_final.recode.vcf")
+#vcf <- read.vcfR("Data_plastome/Marathrum_samples_filtered_Panama.vcf.recode.vcf") for plastome analysis
 genvcf <- vcfR2genlight(vcf)
 
 genetic_dist <- dist(genvcf, method = "euclidean")
@@ -70,9 +71,12 @@ ch_log_geo_dist_matrix <- log(ch_geo_dist_matrix + 1)
 ch_log_geo_dist <- as.dist(ch_log_geo_dist_matrix)
 #Calculate Euclidean genetic distances across all individual pairs
 col_vcf <- read.vcfR("../marathrum_colon_filtered_final.recode.vcf")
+#col_vcf <- read.vcfR("Data_plastome/Marathrum_samples_filtered_Cocle.vcf.recode.vcf")#for plastome data
 col_genvcf <- vcfR2genlight(col_vcf)
 
+
 ch_vcf <- read.vcfR("../marathrum_chiriqui_filtered_final.recode.vcf")
+#ch_vcf <- read.vcfR("Data_plastome/marathrum_chiriqui_filtered_final.recode.vcf")#for plastome analysis
 ch_genvcf <- vcfR2genlight(ch_vcf)
 
 col_genetic_dist <- dist(col_genvcf, method = "euclidean")  # this gives a dist object
@@ -161,18 +165,22 @@ c_log_path_dist <- as.dist(c_log_path_dist_matrix)
 
 #Genetic distance matrices
 d_vcf <- read.vcfR("../marathrum_diego_filtered_final.recode.vcf")
+#d_vcf <- read.vcfR("Data_plastome/marathrum_diego_filtered_final.recode.vcf")#for plastom analysis
 d_genvcf <- vcfR2genlight(d_vcf)
 d_genetic_dist <- dist(d_genvcf, method = "euclidean")  # this gives a dist object
 
 a_vcf <- read.vcfR("../marathrum_aguacate_filtered_final.recode.vcf")
+#a_vcf <- read.vcfR("Data_plastome/marathrum_aguacate_filtered_final.recode.vcf") #for plastome analysis
 a_genvcf <- vcfR2genlight(a_vcf)
 a_genetic_dist <- dist(a_genvcf, method = "euclidean")  # this gives a dist object
 
 c_vcf <- read.vcfR("../marathrum_cocle_norte_filtered_final.recode.vcf")
+#c_vcf <- read.vcfR("Data_plastome/marathrum_cocle_norte_filtered_final.recode.vcf")#for plastome analysis
 c_genvcf <- vcfR2genlight(c_vcf)
 c_genetic_dist <- dist(c_genvcf, method = "euclidean")  # this gives a dist object
 
 pa_vcf <- read.vcfR("../marathrum_paraiso_filtered_final.recode.vcf")
+#pa_vcf <- read.vcfR("Data_plastome/marathrum_paraiso_filtered_final.recode.vcf")#for plastome analysis
 pa_genvcf <- vcfR2genlight(pa_vcf)
 pa_genetic_dist <- dist(pa_genvcf, method = "euclidean")  # this gives a dist object
 
