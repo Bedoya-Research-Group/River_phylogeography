@@ -130,6 +130,7 @@ I am trying this alternative
 
 4.6 For each individual, map reads to the resulting scaffolds (previously indexed) `bash mapping_round2.sh`
 
+4.7. Repeat step 4.2 to 4.6 X2 times
 ***************
 
 4.3. Sort bam `bash bam_sort.sh`
@@ -184,3 +185,9 @@ Alternatively, run Hybpiper and the PPD. PPD:
 ## 7. Gene flow and genetic diversity across space
 
 See scripts in spatial_gene_flow_gendiv.R
+
+## 8. Demographic modeling
+
+8.1. Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
+
+8.2. Down projection `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --proj 48,36,20 -a -v`
