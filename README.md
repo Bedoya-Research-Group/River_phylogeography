@@ -63,8 +63,10 @@ Riverweed phylogeography
 
 3.4 Filter SNPs `vcftools --gzvcf all_samples_raw.vcf.gz --remove-indels --minQ 30 --minDP 20 --maf 0.05 --max-missing 0.80 --thin 10000 --recode --out all_samples_filtered.vcf.gz`
 
-3.5 Remove individuals with >50% missing data (88 indiv left) `vcftools --vcf all_samples_filtered.vcf.gz.recode.vcf --missing-indv --out missing_data_individuals` `vcftools --vcf all_samples_filtered.vcf.gz.recode.vcf --remove individuals_to_remove_from_all.txt --recode --recode-INFO-all --out all_samples_filtered_final`
-Step above performed hierarchically as stated in MS.
+3.5 Remove individuals with >50% missing data (88 indiv left) `vcftools --vcf all_samples_filtered.vcf.gz.recode.vcf --missing-indv --out missing_data_individuals`
+
+`vcftools --vcf all_samples_filtered.vcf.gz.recode.vcf --remove individuals_to_remove_from_all.txt --recode --recode-INFO-all --out all_samples_filtered_final`
+
 
 Data subsets:
 
@@ -182,12 +184,19 @@ Alternatively, run Hybpiper and the PPD. PPD:
 
 3. Sort bam `bash bam_sort.sh`
 
+
 ## 7. Gene flow and genetic diversity across space
 
 See scripts in spatial_gene_flow_gendiv.R
 
-## 8. Demographic modeling
 
-8.1. Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
+## 8. Demographic modeling+phylogenetic inference
 
-8.2. Down projection `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --proj 48,36,20 -a -v`
+8.1. Phylogenetic inference
+`vcftools --vcf ../all_samples_filtered_final.recode.vcf --remove individuals_to_remove_for_tree_inference.txt --max-missing 0.80 --recode --recode-INFO-all --out marathrum_for_tree_inference`
+`python vcf2phylip.py -i marathrum_for_tree_inference.recode.vcf`
+`raxml-ng --all --msa marathrum_for_tree_inference.recode.min4.phy --model GTR+G --bs-metric fbp --bs-trees autoMRE --threads 10`
+
+8.2. Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
+
+8.3. Down projection `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --proj 48,36,20 -a -v`

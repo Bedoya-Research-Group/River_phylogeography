@@ -5,8 +5,15 @@ library(ggplot2)
 setwd("/Users/abedoya/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/River_phylogeography/Data_plastome/")
 
 vcf_plastome <- read.vcfR("Marathrum_samples_filtered_Panama.vcf.recode.vcf")
+vcf_plastome_diego <- read.vcfR("marathrum_diego_filtered_final.recode.vcf")
+vcf_plastome_aguacate <- read.vcfR("marathrum_aguacate_filtered_final.recode.vcf")
+vcf_plastome_paraiso <- read.vcfR("marathrum_paraiso_filtered_final.recode.vcf")
+
 vcf_nuclear_panama<-read.vcfR("../../marathrum_panama_filtered_final.recode.vcf")
 vcf_nuclear_colon<-read.vcfR("../../marathrum_colon_filtered_final.recode.vcf")
+vcf_nuclear_diego<-read.vcfR("../../marathrum_diego_filtered_final.recode.vcf")
+vcf_nuclear_aguacate<-read.vcfR("../../marathrum_aguacate_filtered_final.recode.vcf")
+vcf_nuclear_paraiso<-read.vcfR("../../marathrum_paraiso_filtered_final.recode.vcf")
 #Read as genlight object
 genlight_obj <- vcfR2genlight(vcf)
 
@@ -16,7 +23,7 @@ colnames(vcf@gt)
 current_names <- colnames(vcf@gt)[-1]
 print(current_names)
 
-new_names <- sub("_plastome.*", "", current_names)
+new_names <- sub("-plastome.*", "", current_names)
 colnames(vcf@gt)[-1] <- new_names
 
 pop_vector <- c(
@@ -33,6 +40,13 @@ pop_vector <- c(
 #  rep("A", 20),
 #  rep("C", 11)
 #)
+
+##for diego
+#pop_vector<-rep("D",26)
+##for aguacate
+#pop_vector<-rep("A",20)
+##for paraiso
+#pop_vector<-rep("P",10)
 
 #Assign pop vector to genlight object and check
 pop(genlight_obj) <- pop_vector
