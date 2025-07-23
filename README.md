@@ -94,7 +94,7 @@ For Rio Cocle del Norte (11 indiv left):
 For Chiriqui Province (12 indiv left):
 `vcftools --vcf marathrum_panama_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_chiriqui.txt --max-missing 0.95 --recode --recode-INFO-all --out marathrum_chiriqui_filtered_final`
 
-For Paraiso Province (10 indiv left):
+For Paraiso river (10 indiv left):
 `vcftools --vcf marathrum_chiriqui_filtered_final.recode.vcf --remove individuals_to_remove_from_marathrum_paraiso.txt --max-missing 0.95 --recode --recode-INFO-all --out marathrum_paraiso_filtered_final`
 
 For Aguacate+Diego (46 individuals):
@@ -195,7 +195,9 @@ See scripts in spatial_gene_flow_gendiv.R
 8.1. Phylogenetic inference
 `vcftools --vcf ../all_samples_filtered_final.recode.vcf --remove individuals_to_remove_for_tree_inference.txt --max-missing 0.80 --recode --recode-INFO-all --out marathrum_for_tree_inference`
 `python vcf2phylip.py -i marathrum_for_tree_inference.recode.vcf`
+####Probably use svdquartets instead of raxml-ng
 `raxml-ng --all --msa marathrum_for_tree_inference.recode.min4.phy --model GTR+G --bs-metric fbp --bs-trees autoMRE --threads 10`
+`svdq evalq=all bootstrap=standard nreps=1000 nthreads=ncpus`
 
 8.2. Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
 

@@ -667,7 +667,7 @@ ggplot(plot_df_between, aes(x = GeoDist, y = GeneticDist)) +
   theme_minimal()
 
 #########################################################
-#######  Diversity Stats within and across rivers #######
+#######  Diversity Stats within rivers #######
 #########################################################
 setwd("~/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/")
 #genind_obj <- vcfR2genind(col_vcf)
@@ -688,50 +688,96 @@ pop(genind_obj) <- factor(c(
 
 geno <- tab(genind_obj, NA.method = "mean")
 
-# Function to calculate Ho for one individual
-calculate_Ho <- function(row) {
-  het_count <- 0
-  for (i in seq(1, ncol(geno), by = 2)) {
-    alleles <- row[i:(i + 1)]
-    if (!any(is.na(alleles)) && alleles[1] != alleles[2]) {
-      het_count <- het_count + 1
-    }
-  }
-  het_count
+##Calculating Ho with adegenet
+
+X <- tab(genind_obj, freq = FALSE, NA.method = "asis") #ignoring missing sites
+loc_factor <- rep(locNames(genind_obj), times = nAll(genind_obj))
+
+calc_ind_Ho <- function(ind_row) {
+  split_loci <- split(ind_row, loc_factor)
+  het_vec <- vapply(split_loci, function(vec) {
+    if (any(is.na(vec))) return(NA_real_)
+    nonzero <- vec[vec > 0]
+    if (length(nonzero) >= 2) 1 else 0
+  }, numeric(1))
+  mean(het_vec, na.rm = TRUE)
 }
 
-#Calculate Ho across individuals
-ho_individual <- apply(geno, 1, calculate_Ho)
+ind_Ho <- apply(X, 1, calc_ind_Ho)
 
-#Combine with population info
-df_ho <- data.frame(
+# Combine with population info
+df_indHo <- data.frame(
   Individual = indNames(genind_obj),
   Population = pop(genind_obj),
-  Ho = ho_individual
+  Ho = ind_Ho
 )
 
-df_ho$Population <- factor(df_ho$Population, levels = c(
-  "Diego_up", "Diego_mid", "Diego_down",
-  "Aguacate_up", "Aguacate_mid", "Aguacate_down",
-  "Paraiso_up", "Paraiso_down"  # no mid for Paraiso
-))
-##Summarize average and SD per pop
-# Summarize average and standard deviation of Ho per population
-ho_summary <- df_ho %>%
+df_indHo %>%
   group_by(Population) %>%
   summarise(
     Mean_Ho = mean(Ho, na.rm = TRUE),
     SD_Ho = sd(Ho, na.rm = TRUE),
     N = n()
   )
-
-# Print the summary table
-print(ho_summary)
-
 #Plot
-ggplot(df_ho, aes(x = Population, y = Ho, fill = Population)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(y = "Observed Heterozygosity (Ho)", title = "Per-Individual Heterozygosity by Population") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+df_indHo$Population <- factor( #reordering populations
+  df_indHo$Population,
+  levels = c(
+    "Diego_up", "Diego_mid", "Diego_down",
+    "Aguacate_up", "Aguacate_mid", "Aguacate_down",
+    "Paraiso_up", "Paraiso_down"
+  )
+)
 
+ggplot(df_indHo, aes(x = Population, y = Ho, fill = Population)) +
+  geom_boxplot(outlier.shape = NA, alpha = 0.7) +
+  geom_jitter(width = 0.2, size = 1.2, alpha = 0.6) +
+  theme_minimal() +
+  labs(
+    y = "Observed Heterozygosity (Ho)",
+    x = NULL,
+    title = "Observed Heterozygosity per Population"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none"
+  )
+
+
+
+# Function to calculate Ho for one individual (wiht imputation so the method above is better)
+#calculate_Ho <- function(row) {
+#  het_count <- 0
+#  for (i in seq(1, ncol(geno), by = 2)) {
+#    alleles <- row[i:(i + 1)]
+#    if (!any(is.na(alleles)) && alleles[1] != alleles[2]) {
+#      het_count <- het_count + 1
+#    }
+#  }
+#  het_count
+#}
+
+#Calculate Ho across individuals
+#ho_individual <- apply(geno, 1, calculate_Ho)
+
+#Combine with population info
+#df_ho <- data.frame(
+#  Individual = indNames(genind_obj),
+#  Population = pop(genind_obj),
+#  Ho = ho_individual
+#)
+
+#df_ho$Population <- factor(df_ho$Population, levels = c(
+#  "Diego_up", "Diego_mid", "Diego_down",
+#  "Aguacate_up", "Aguacate_mid", "Aguacate_down",
+#  "Paraiso_up", "Paraiso_down"  # no mid for Paraiso
+#))
+##Summarize average and SD per pop
+# Summarize average and standard deviation of Ho per population
+#ho_summary <- df_ho %>%
+#  group_by(Population) %>%
+#  summarise(
+#    Mean_Ho = mean(Ho, na.rm = TRUE),
+#    SD_Ho = sd(Ho, na.rm = TRUE),
+#    N = n()
+#  )
