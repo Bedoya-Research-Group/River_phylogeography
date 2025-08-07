@@ -180,9 +180,6 @@ Alternatively, run Hybpiper and the PPD. PPD:
 
 6.5. Filter SNPs `vcftools --gzvcf all_samples_raw.vcf.gz --remove-indels --minQ 30 --minDP 20 --maf 0.05 --max-missing 0.95 --recode --out all_samples_filtered.vcf`
 
-6.6. Plot results
-
-3. Sort bam `bash bam_sort.sh`
 
 
 ## 7. Gene flow and genetic diversity across space
@@ -197,7 +194,7 @@ See scripts in spatial_gene_flow_gendiv.R
 `python vcf2phylip.py -i marathrum_for_tree_inference.recode.vcf`
 ####Probably use svdquartets instead of raxml-ng
 `raxml-ng --all --msa marathrum_for_tree_inference.recode.min4.phy --model GTR+G --bs-metric fbp --bs-trees autoMRE --threads 10`
-`svdq evalq=all bootstrap=standard nreps=1000 nthreads=ncpus`
+`svdq evalq=all bootstrap=standard nreps=1000 nthreads=ncpus` `savetrees file=svdq_consensus.tre format=newick brlens=yes replace;`
 
 8.2. Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
 
