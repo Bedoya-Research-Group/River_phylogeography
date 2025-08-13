@@ -7,6 +7,7 @@ library(adegenet)
 library(ggplot2)
 library(hierfstat)
 library(ade4)
+library(dplyr)
 
 setwd("~/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/River_phylogeography/")
 coords <- read.csv("coordinates.csv", row.names = 1)

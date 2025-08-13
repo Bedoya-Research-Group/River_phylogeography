@@ -26,10 +26,6 @@ ggplot() +
 
 ##Panama and Colombia and all points
 
-# ---- Packages ----
-# Install once if needed:
-# install.packages(c("sf","ggplot2","rnaturalearth","rnaturalearthdata","ggspatial","readr","dplyr"))
-
 library(sf)
 library(ggplot2)
 library(rnaturalearth)
@@ -38,34 +34,31 @@ library(ggspatial)
 library(readr)
 library(dplyr)
 
-# ---- Load country outlines (Panama + Colombia) ----
+
 countries <- ne_countries(scale = "medium", returnclass = "sf") |>
   filter(admin %in% c("Panama", "Colombia")) |>
   st_transform(4326)   # keep in WGS84 lon/lat
 
-# ---- Read your points ----
-# CSV should have columns: lon, lat (and optionally species/group)
-# Example header: lon,lat,species
+
+
 points_raw <- read_csv("~/Bedoya Dropbox/Bedoya_Research_Group/River_phylogeography/all_samples_coords.csv", show_col_types = FALSE)
 
-# Basic checks and convert to sf
 points_sf <- points_raw |>
   rename(lon = !!rlang::sym(names(points_raw)[grep("^lon$", names(points_raw), ignore.case=TRUE)]),
          lat = !!rlang::sym(names(points_raw)[grep("^lat$", names(points_raw), ignore.case=TRUE)])) |>
   st_as_sf(coords = c("lon","lat"), crs = 4326, remove = FALSE)
 
-# ---- Optional: set a custom map extent (auto or manual) ----
-# Auto: pad bounding box around your points & countries
+
 bb_all <- st_bbox(st_union(st_geometry(countries), st_geometry(points_sf)))
 pad <- 0.5  # degrees of padding on each side
 xlim <- c(bb_all["xmin"] - pad, bb_all["xmax"] + pad)
 ylim <- c(bb_all["ymin"] - pad, bb_all["ymax"] + pad)
 
-# Manual (uncomment to override)
+
  xlim <- c(-84, -71)  # longitudes covering Panama->Colombia
  ylim <- c(5, 13)    # latitudes
 
-# ---- Map styling helpers ----
+
 base_theme <- theme_minimal(base_size = 12) +
   theme(
     panel.grid.major = element_line(linewidth = 0.2, color = "grey85"),
@@ -73,8 +66,8 @@ base_theme <- theme_minimal(base_size = 12) +
     axis.title = element_blank()
   )
 
-# ---- Plot ----
-# Color by "species" if present; otherwise a single color
+#Plot
+
 aes_color <- if ("species" %in% names(points_raw)) aes(color = species) else NULL
 
 p <- ggplot() +
@@ -88,7 +81,6 @@ p <- ggplot() +
   labs(title = "Sampling Map: Panama & Colombia") +
   base_theme
 
-# If you want points colored by a column (e.g., species/group), replace the point layer:
 if (!is.null(aes_color)) {
   p <- ggplot() +
     geom_sf(data = countries, fill = "grey92", color = "grey35", linewidth = 0.4) +
@@ -105,5 +97,5 @@ if (!is.null(aes_color)) {
 
 print(p)
 
-# ---- Save to file ----
+
 ggsave("panama_colombia_sampling_map.png", p, width = 7.5, height = 6, dpi = 300)
