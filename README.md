@@ -119,7 +119,8 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 
 ## 4. ASSEMBLY OF TE DATA FROM GENOME SKIMMING
 
-4.1. Map reads to Bedoya et al., 2021 target file ('Target_Sequences_single_exon.fasta'; previously indexed) `bash bwa-mem.sh`
+4.1. Map reads to Bedoya et al., 2021 target file ('Target_Sequences_single_exon.fasta'; previously indexed see bwa_index.job) `bash bwa-mem.sh`
+
 
 4.2. Convert sam to bam `bash samtobam.sh`
 ****************

@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH -A abedoya
+#SBATCH -N 1
+#SBATCH -c 20
+#SBATCH -t 72:00:00
+#SBATCH -p defq 
+#SBATCH -J bwa_index_TE 
+#SBATCH -o bwa_index_TE
+
+# Number of Cores per job (needs to be multiple of 2)
+#export CORES_PER_JOB=20
+
+# move into the directory containing this script
+#cd river_phylogeo/
+
+#cd TE_loci/
+cd assemblies02
+# set the number of Jobs per node based on $CORES_PER_JOB
+#export JOBS_PER_NODE=$(($PBS_NUM_PPN / $CORES_PER_JOB))
+
+#bwa index CRR103268_03_mutated.fasta
+
+#bwa index Target_Sequences.fasta
+
+refdir="/home/abedoya/river_phylogeo/assemblies02"
+
+for ref in "$refdir"/*/*-pe_mapped2_TE.mapped2_TE_reads.bam_assembly_scaffolds.fasta
+do
+    echo "Indexing: $ref"
+    bwa index "$ref"
+done
