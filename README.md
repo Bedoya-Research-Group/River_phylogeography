@@ -123,8 +123,7 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 
 
 4.2. Convert sam to bam `bash samtobam.sh`
-****************
-I am trying this alternative
+
 4.3 Extract mapped reads for each individual `bash extract_mapped_reads_per_individual.sh`
 
 4.4 Convert mapped BAMs to Fastq `bash mapped_bams2fastq.sh`
@@ -135,31 +134,11 @@ I am trying this alternative
 
 4.7. Repeat step 4.2 to 4.6 X2 times
 
-4.8 Filter resulting contigs 2000 > 1000 bp `bash filter_contigs_by_size.sh`
+4.8 Filter out resulting contigs 10000 > 200 bp `bash filter_contigs_by_size.sh`
 
-4.9 Selecting only sequences present in every samples at ≥90% identity and ≥90% coverage of the shorter sequence `bash cluster_sequences_90pct.sh`
+4.9 Selecting only sequences that match reference sequences `bash make_per_locus_multifasta.sh`
 
-***************
-
-4.3. Sort bam `bash bam_sort.sh`
-
-4.4. Extract contigs names (target sequence loci names) `bash mapped_contigs_names.sh`
-
-4.5. Index bam `bash samtools_index.sh`
-
-4.6. Extract contigs from Target reference `bash extract_contigs.sh`
-
-4.7. Assemble scaffolds with SPAdes `bash assembly.sh`
-
-4.8. Extract the best contig `bash best_contig_extraction.sh`
-
-4.9. Replace reference with assembled contigs
-
-
-Alternatively, run Hybpiper and the PPD. PPD:
-1. `bash putative_paralog/Step1.sh . namelist.txt`
-
-
+4.10 Adding heterozigous sites wiht IUPAC ambiguity codes `polish_from_multilocus.sh`
 
 ## 5. PLASTOME ASSEMBLY
 
