@@ -134,6 +134,11 @@ I am trying this alternative
 4.6 For each individual, map reads to the resulting scaffolds (previously indexed) `bash mapping_round2.sh`
 
 4.7. Repeat step 4.2 to 4.6 X2 times
+
+4.8 Filter resulting contigs 2000 > 1000 bp `bash filter_contigs_by_size.sh`
+
+4.9 Selecting only sequences present in every samples at ≥90% identity and ≥90% coverage of the shorter sequence `bash cluster_sequences_90pct.sh`
+
 ***************
 
 4.3. Sort bam `bash bam_sort.sh`
