@@ -115,7 +115,6 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 3.8 Run admixture:
 
 `bash admixture.sh`
-*****
 
 ## 4. ASSEMBLY OF TE DATA FROM GENOME SKIMMING
 
@@ -129,7 +128,7 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 
 4.5 Convert from Fasta2phylip and cat all .phy in a sinngle file for BPP
 
-
+***
 ########################################################################
 ############################# MISC######################################
 4.1. Map reads to Bedoya et al., 2021 target file ('Target_Sequences_single_exon.fasta'; previously indexed see bwa_index.job) `bash bwa-mem.sh`
@@ -153,7 +152,7 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 4.10 Adding heterozygous sites wiht IUPAC ambiguity codes `polish_from_multilocus.sh`
 ########################################################################
 ########################################################################
-
+***
 
 ## 5. PLASTOME ASSEMBLY
 
