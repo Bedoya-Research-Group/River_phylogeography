@@ -120,39 +120,14 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 
 4.1 Hybpiper assemble using Target_Sequences_single_exon.fasta.
 
-4.2. Generate consensus sequences with IUPAc ambiguity codes with Hybphaser (e.g.,`bash 1_generate_consensus_sequences.sh -n ../namelist_MSCI.txt -p /home/abedoya/river_phylogeo/ -o /home/abedoya/river_phylogeo/HybPhaser/MSCI_exons`)
+4.2. Generate consensus sequences with IUPAC ambiguity codes with Hybphaser (e.g.,`bash 1_generate_consensus_sequences.sh -n ../namelist_MSCI.txt -p /home/abedoya/river_phylogeo/ -o /home/abedoya/river_phylogeo/HybPhaser/MSCI_exons`)
 
 4.3. Organize outputs in multifasta files for each locus `bash multifasta_per_locus.sh`
 
 4.4. Align all multifastas with MAFFT `bash mafft.sh`
 
-4.5 Convert from Fasta2phylip and cat all .phy in a sinngle file for BPP
+4.5 Convert from Fasta2phylip and cat all .phy in a single file for BPP
 
-***
-########################################################################
-############################# MISC######################################
-4.1. Map reads to Bedoya et al., 2021 target file ('Target_Sequences_single_exon.fasta'; previously indexed see bwa_index.job) `bash bwa-mem.sh`
-
-4.2. Convert sam to bam `bash samtobam.sh`
-
-4.3 Extract mapped reads for each individual `bash extract_mapped_reads_per_individual.sh`
-
-4.4 Convert mapped BAMs to Fastq `bash mapped_bams2fastq.sh`
-
-4.5 De novo assemble `bash assembly.sh`
-
-4.6 For each individual, map reads to the resulting scaffolds (previously indexed) `bash mapping_round2.sh`
-
-4.7. Repeat step 4.2 to 4.6 X2 times
-
-4.8 Filter out resulting contigs 10000 > 200 bp `bash filter_contigs_by_size.sh`
-
-4.9 Selecting only sequences that match reference sequences and make multifasta `bash make_per_locus_multifasta.sh`
-
-4.10 Adding heterozygous sites wiht IUPAC ambiguity codes `polish_from_multilocus.sh`
-########################################################################
-########################################################################
-***
 
 ## 5. PLASTOME ASSEMBLY
 
