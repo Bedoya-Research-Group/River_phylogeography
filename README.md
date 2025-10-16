@@ -128,6 +128,8 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 
 4.5 Convert from Fasta2phylip and cat all .phy in a single file for BPP
 
+4.6 Identify outlier loci (potential paralogs) by counting SNPS (`Rscript 1a_count_snps.R`) and flagging outliers (`1b_assess_dataset.R`). See `config.txt` file
+
 
 ## 5. PLASTOME ASSEMBLY
 
