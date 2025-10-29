@@ -120,7 +120,7 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 
 4.1 Hybpiper assemble using Target_Sequences_single_exon.fasta.
 
-4.2. Generate consensus sequences with IUPAC ambiguity codes with Hybphaser (e.g.,`bash 1_generate_consensus_sequences.sh -n ../namelist_MSCI.txt -p /home/abedoya/river_phylogeo/ -o /home/abedoya/river_phylogeo/HybPhaser/MSCI_exons`)
+4.2. Generate consensus sequences with IUPAC ambiguity codes with Hybphaser (e.g.,`bash 1_generate_consensus_sequences.sh -n namelist_all.txt -p /home/abedoya/river_phylogeo/multiexons -o /home/abedoya/river_phylogeo/HybPhaser/MSCM_multiexons`)
 
 4.3. Organize outputs in multifasta files for each locus `bash multifasta_per_locus.sh`
 

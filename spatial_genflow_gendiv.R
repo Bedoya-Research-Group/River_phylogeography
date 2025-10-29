@@ -744,7 +744,18 @@ ggplot(df_indHo, aes(x = Population, y = Ho, fill = Population)) +
     legend.position = "none"
   )
 
+df <- df_indHo %>%
+  separate(Population, into = c("River", "Position"), sep = "_")
 
+df %>%
+  group_by(River, Position) %>%
+  summarise(p_value = shapiro.test(Ho)$p.value)
+
+results_kw <- df %>%
+  group_by(River) %>%
+  summarise(p_value = kruskal.test(Ho ~ Position, data = .)$p.value)
+
+results_kw
 
 # Function to calculate Ho for one individual (wiht imputation so the method above is better)
 #calculate_Ho <- function(row) {
