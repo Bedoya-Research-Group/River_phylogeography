@@ -171,7 +171,7 @@ See scripts in spatial_gene_flow_gendiv.R
 
 
 
-##EXTRAS
+## EXTRAS
 8.2. Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
 
 8.3. Down projection `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --proj 48,36,20 -a -v`
