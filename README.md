@@ -131,16 +131,13 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 4.6 Identify outlier loci (potential paralogs) by counting SNPS (`Rscript 1a_count_snps.R`) and flagging outliers (`1b_assess_dataset.R`). See `config.txt` file
 
 
-## 5. PLASTOME ASSEMBLY
+## 5. PLASTOME SNP processing
 
 5.1. `bash getorganelle.sh`
 
-5.2. Check assemblies in Bandage
+5.2. Rename *.fq files (`bash files_folders_name_changes.sh`) so they can be move to a separate folder for Plastome SNP calls
 
-5.3. Rename *.fq files (`bash files_folders_name_changes.sh`) so they can be move to a separate folder for Plastome SNP calls
-
-5.4. Annotate plastomes `perl PGA/PGA.pl -r /home/abedoya/river_phylogeo/plastome/ -t assembled_plastomes/`
-
+Not done. Do only is full plastomes are assembled: 5.3. Annotate plastomes `perl PGA/PGA.pl -r /home/abedoya/river_phylogeo/plastome/ -t assembled_plastomes/`
 
 
 ## 6. Plastid genomes SNP analysis
@@ -157,21 +154,24 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 6.5. Filter SNPs `vcftools --gzvcf all_samples_raw.vcf.gz --remove-indels --minQ 30 --minDP 20 --maf 0.05 --max-missing 0.95 --recode --out all_samples_filtered.vcf`
 
 
-
 ## 7. Gene flow and genetic diversity across space
 
 See scripts in spatial_gene_flow_gendiv.R
 
 
-## 8. Demographic modeling+phylogenetic inference
+## 8. Phylogenetic inference (of nuclear SNPs but same scripts for plastid SNPs)
 
-8.1. Phylogenetic inference
-`vcftools --vcf ../all_samples_filtered_final.recode.vcf --remove individuals_to_remove_for_tree_inference.txt --max-missing 0.80 --recode --recode-INFO-all --out marathrum_for_tree_inference`
-`python vcf2phylip.py -i marathrum_for_tree_inference.recode.vcf`
-####Probably use svdquartets instead of raxml-ng
-`raxml-ng --all --msa marathrum_for_tree_inference.recode.min4.phy --model GTR+G --bs-metric fbp --bs-trees autoMRE --threads 10`
-`svdq evalq=all bootstrap=standard nreps=1000 nthreads=ncpus` `savetrees file=svdq_consensus.tre format=newick brlens=yes replace;`
+8.1. Get data redy `vcftools --vcf ../all_samples_filtered_final.recode.vcf --remove individuals_to_remove_for_tree_inference.txt --max-missing 0.80 --recode --recode-INFO-all --out marathrum_for_tree_inference`
 
+8.2 Convert vcf to phylip `python vcf2phylip.py -i marathrum_for_tree_inference.recode.vcf -m 82`
+
+8.3 Use iqtree to filter out seemingly invariant sites (from IUPCa ambiguity codes; see https://github.com/edgardomortiz/vcf2phylip/issues/9) `iqtree -s marathrum_for_tree_inference.recode.min82.phy -m GTR+ASC_LEWIS -B 1000`
+
+8.3 Phylogenetic inference with Lewis' aquisition bias correction `raxml-ng --all --msa marathrum_for_tree_inference.recode.min82.phy --model GTR+G+ASC_LEWIS --bs-metric fbp --bs-trees autoMRE --threads 10`
+
+
+
+##EXTRAS
 8.2. Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
 
 8.3. Down projection `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --proj 48,36,20 -a -v`
