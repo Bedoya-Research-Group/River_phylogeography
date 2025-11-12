@@ -1,9 +1,0 @@
-AMB1351_Cu	up
-AMB1355_Cu	up
-AMB1356_Cu	up
-AMB1359_Cd	down
-AMB1360_Cd	down
-AMB1361_Cd	down
-AMB1362_Cd	down
-AMB1363_Cd	down
-AMB1364_Cd	down
