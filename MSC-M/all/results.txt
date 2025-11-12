@@ -1,0 +1,273 @@
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.00| 14243.84|
+|theta_2Aguacate                  |        1.01| 16001.52|
+|theta_3Cocle                     |        1.01| 21883.62|
+|theta_4Piedras                   |        1.08|  6737.98|
+|theta_5DiegoAguacateCoclePiedras |        1.04|  6011.73|
+|theta_6DiegoAguacateCocle        |        1.20|  2367.95|
+|theta_7DiegoAguacate             |        1.01| 15378.92|
+|tau_5DiegoAguacateCoclePiedras   |        1.15|   721.27|
+|tau_6DiegoAguacateCocle          |        1.07|  2158.58|
+|tau_7DiegoAguacate               |        1.07|  1984.43|
+|M_Diego..Aguacate                |        1.02|  3196.46|
+|M_Aguacate..Diego                |        1.02|  4612.96|
+|lnL                              |        1.89| 16879.81|
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0014|       0.0013|       0.0016|
+|theta_2Aguacate                  |       0.0018|       0.0015|       0.0020|
+|theta_3Cocle                     |       0.0024|       0.0021|       0.0027|
+|theta_4Piedras                   |       0.0004|       0.0003|       0.0005|
+|theta_5DiegoAguacateCoclePiedras |       0.0018|       0.0015|       0.0020|
+|theta_6DiegoAguacateCocle        |       0.0021|       0.0001|       0.0035|
+|theta_7DiegoAguacate             |       0.0003|       0.0000|       0.0006|
+|tau_5DiegoAguacateCoclePiedras   |       0.0005|       0.0004|       0.0005|
+|tau_6DiegoAguacateCocle          |       0.0004|       0.0003|       0.0004|
+|tau_7DiegoAguacate               |       0.0004|       0.0003|       0.0004|
+|M_Diego..Aguacate                |       0.1184|       0.0474|       0.1918|
+|M_Aguacate..Diego                |       0.1167|       0.0703|       0.1649|
+|lnL                              | -194631.8466| -194769.0090| -194517.3560|
+
+
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.01| 17328.78|
+|theta_2Aguacate                  |        1.01| 25613.97|
+|theta_3Cocle                     |        1.00| 13262.45|
+|theta_4Piedras                   |        1.01| 14172.82|
+|theta_5DiegoAguacateCoclePiedras |        1.01|  8824.57|
+|theta_6DiegoAguacateCocle        |        1.02|  9500.00|
+|theta_7DiegoAguacate             |        1.03|  1071.67|
+|tau_5DiegoAguacateCoclePiedras   |        1.02|  1949.50|
+|tau_6DiegoAguacateCocle          |        1.01|  1569.34|
+|tau_7DiegoAguacate               |        1.02|  4122.56|
+|M_Diego..Cocle                   |        1.01|  1542.48|
+|M_Cocle..Diego                   |        1.00|  1618.49|
+|lnL                              |        1.04| 12300.41|
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0015|       0.0014|       0.0017|
+|theta_2Aguacate                  |       0.0021|       0.0018|       0.0023|
+|theta_3Cocle                     |       0.0020|       0.0017|       0.0023|
+|theta_4Piedras                   |       0.0004|       0.0004|       0.0005|
+|theta_5DiegoAguacateCoclePiedras |       0.0017|       0.0014|       0.0019|
+|theta_6DiegoAguacateCocle        |       0.0045|       0.0024|       0.0067|
+|theta_7DiegoAguacate             |       0.0006|       0.0001|       0.0015|
+|tau_5DiegoAguacateCoclePiedras   |       0.0005|       0.0004|       0.0006|
+|tau_6DiegoAguacateCocle          |       0.0003|       0.0003|       0.0004|
+|tau_7DiegoAguacate               |       0.0003|       0.0003|       0.0003|
+|M_Diego..Cocle                   |       0.0659|       0.0000|       0.1289|
+|M_Cocle..Diego                   |       0.0287|       0.0023|       0.0570|
+|lnL                              | -194633.9149| -194728.1090| -194539.1020|
+
+
+
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.01| 27755.13|
+|theta_2Aguacate                  |        1.00| 32404.31|
+|theta_3Cocle                     |        1.00| 26215.70|
+|theta_4Piedras                   |        1.00| 15692.52|
+|theta_5DiegoAguacateCoclePiedras |        1.02| 10131.33|
+|theta_6DiegoAguacateCocle        |        1.00| 14196.90|
+|theta_7DiegoAguacate             |        1.00|  1637.72|
+|tau_5DiegoAguacateCoclePiedras   |        1.02|  1908.23|
+|tau_6DiegoAguacateCocle          |        1.00|  5254.35|
+|tau_7DiegoAguacate               |        1.00|  5448.37|
+|M_Diego..Piedras                 |        1.01|  8157.72|
+|M_Piedras..Diego                 |        1.00|  6150.77|
+|lnL                              |        1.09| 10819.57|
+
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0016|       0.0014|       0.0018|
+|theta_2Aguacate                  |       0.0020|       0.0017|       0.0022|
+|theta_3Cocle                     |       0.0021|       0.0018|       0.0023|
+|theta_4Piedras                   |       0.0004|       0.0004|       0.0005|
+|theta_5DiegoAguacateCoclePiedras |       0.0017|       0.0014|       0.0019|
+|theta_6DiegoAguacateCocle        |       0.0043|       0.0029|       0.0058|
+|theta_7DiegoAguacate             |       0.0003|       0.0000|       0.0008|
+|tau_5DiegoAguacateCoclePiedras   |       0.0005|       0.0005|       0.0006|
+|tau_6DiegoAguacateCocle          |       0.0003|       0.0003|       0.0003|
+|tau_7DiegoAguacate               |       0.0003|       0.0003|       0.0003|
+|M_Diego..Piedras                 |       0.0026|       0.0000|       0.0069|
+|M_Piedras..Diego                 |       0.0056|       0.0000|       0.0130|
+|lnL                              | -194620.0890| -194716.7890| -194524.3850|
+
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.00| 25531.71|
+|theta_2Aguacate                  |        1.01| 27311.57|
+|theta_3Cocle                     |        1.00| 23660.33|
+|theta_4Piedras                   |        1.01| 11743.88|
+|theta_5DiegoAguacateCoclePiedras |        1.01|  6932.04|
+|theta_6DiegoAguacateCocle        |        1.00| 13185.10|
+|theta_7DiegoAguacate             |        1.01|  1461.17|
+|tau_5DiegoAguacateCoclePiedras   |        1.03|  1272.22|
+|tau_6DiegoAguacateCocle          |        1.01|  4197.75|
+|tau_7DiegoAguacate               |        1.01|  4372.45|
+|M_Aguacate..Piedras              |        1.00|  5468.89|
+|M_Piedras..Aguacate              |        1.00| 10026.14|
+|lnL                              |        1.05|  8324.71|
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0016|       0.0014|       0.0018|
+|theta_2Aguacate                  |       0.0020|       0.0017|       0.0022|
+|theta_3Cocle                     |       0.0020|       0.0018|       0.0023|
+|theta_4Piedras                   |       0.0004|       0.0004|       0.0005|
+|theta_5DiegoAguacateCoclePiedras |       0.0017|       0.0014|       0.0019|
+|theta_6DiegoAguacateCocle        |       0.0043|       0.0030|       0.0059|
+|theta_7DiegoAguacate             |       0.0003|       0.0000|       0.0007|
+|tau_5DiegoAguacateCoclePiedras   |       0.0005|       0.0004|       0.0006|
+|tau_6DiegoAguacateCocle          |       0.0003|       0.0003|       0.0003|
+|tau_7DiegoAguacate               |       0.0003|       0.0003|       0.0003|
+|M_Aguacate..Piedras              |       0.0034|       0.0000|       0.0086|
+|M_Piedras..Aguacate              |       0.0045|       0.0000|       0.0131|
+|lnL                              | -194628.3578| -194726.8410| -194530.4250|
+
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.00| 21811.04|
+|theta_2Aguacate                  |        1.00| 13792.34|
+|theta_3Cocle                     |        1.00|  8884.41|
+|theta_4Piedras                   |        1.01| 10368.36|
+|theta_5DiegoAguacateCoclePiedras |        1.01|  7160.47|
+|theta_6DiegoAguacateCocle        |        1.01|  3915.79|
+|theta_7DiegoAguacate             |        1.01|   887.43|
+|tau_5DiegoAguacateCoclePiedras   |        1.02|  1434.72|
+|tau_6DiegoAguacateCocle          |        1.01|   923.08|
+|tau_7DiegoAguacate               |        1.01|  4070.35|
+|M_Aguacate..Cocle                |        1.02|  1250.47|
+|M_Cocle..Aguacate                |        1.01|  3815.25|
+|lnL                              |        1.02| 12054.24|
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0017|       0.0015|       0.0019|
+|theta_2Aguacate                  |       0.0017|       0.0015|       0.0020|
+|theta_3Cocle                     |       0.0021|       0.0018|       0.0024|
+|theta_4Piedras                   |       0.0004|       0.0004|       0.0005|
+|theta_5DiegoAguacateCoclePiedras |       0.0017|       0.0015|       0.0019|
+|theta_6DiegoAguacateCocle        |       0.0044|       0.0001|       0.0068|
+|theta_7DiegoAguacate             |       0.0007|       0.0001|       0.0016|
+|tau_5DiegoAguacateCoclePiedras   |       0.0005|       0.0004|       0.0006|
+|tau_6DiegoAguacateCocle          |       0.0003|       0.0003|       0.0004|
+|tau_7DiegoAguacate               |       0.0003|       0.0003|       0.0003|
+|M_Aguacate..Cocle                |       0.0245|       0.0000|       0.0724|
+|M_Cocle..Aguacate                |       0.1138|       0.0526|       0.1750|
+|lnL                              | -194630.4352| -194725.6330| -194535.5680|
+
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.00| 25946.19|
+|theta_2Aguacate                  |        1.01| 31302.36|
+|theta_3Cocle                     |        1.01| 24105.00|
+|theta_4Piedras                   |        1.01| 11170.18|
+|theta_5DiegoAguacateCoclePiedras |        1.01|  8617.64|
+|theta_6DiegoAguacateCocle        |        1.00| 13450.10|
+|theta_7DiegoAguacate             |        1.02|  1513.52|
+|tau_5DiegoAguacateCoclePiedras   |        1.02|  1638.41|
+|tau_6DiegoAguacateCocle          |        1.01|  5021.64|
+|tau_7DiegoAguacate               |        1.00|  5105.60|
+|M_Cocle..Piedras                 |        1.02|  3114.27|
+|M_Piedras..Cocle                 |        1.00| 10533.31|
+|lnL                              |        1.08| 10916.28|
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0016|       0.0015|       0.0018|
+|theta_2Aguacate                  |       0.0020|       0.0017|       0.0022|
+|theta_3Cocle                     |       0.0020|       0.0017|       0.0022|
+|theta_4Piedras                   |       0.0004|       0.0004|       0.0005|
+|theta_5DiegoAguacateCoclePiedras |       0.0016|       0.0013|       0.0018|
+|theta_6DiegoAguacateCocle        |       0.0039|       0.0028|       0.0051|
+|theta_7DiegoAguacate             |       0.0003|       0.0000|       0.0008|
+|tau_5DiegoAguacateCoclePiedras   |       0.0006|       0.0005|       0.0006|
+|tau_6DiegoAguacateCocle          |       0.0003|       0.0003|       0.0003|
+|tau_7DiegoAguacate               |       0.0003|       0.0003|       0.0003|
+|M_Cocle..Piedras                 |       0.0061|       0.0000|       0.0139|
+|M_Piedras..Cocle                 |       0.0345|       0.0110|       0.0601|
+|lnL                              | -194614.3046| -194712.1120| -194517.4110|
+
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.03| 22304.83|
+|theta_2Aguacate                  |        1.02| 28555.11|
+|theta_3Cocle                     |        1.24| 12874.48|
+|theta_4Piedras                   |        1.00| 15881.94|
+|theta_5DiegoAguacateCoclePiedras |        1.00| 10277.22|
+|theta_6DiegoAguacateCocle        |        1.47|  7417.71|
+|theta_7DiegoAguacate             |        1.37|  1102.66|
+|tau_5DiegoAguacateCoclePiedras   |        1.01|  2245.45|
+|tau_6DiegoAguacateCocle          |        1.59|  2191.04|
+|tau_7DiegoAguacate               |        1.25|  3591.51|
+|M_Cocle..DiegoAguacate           |        1.66|   544.11|
+|M_DiegoAguacate..Cocle           |        1.13| 10803.99|
+|lnL                              |        1.30| 10912.87|
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0016|       0.0014|       0.0018|
+|theta_2Aguacate                  |       0.0020|       0.0017|       0.0022|
+|theta_3Cocle                     |       0.0021|       0.0018|       0.0025|
+|theta_4Piedras                   |       0.0004|       0.0004|       0.0005|
+|theta_5DiegoAguacateCoclePiedras |       0.0017|       0.0015|       0.0019|
+|theta_6DiegoAguacateCocle        |       0.0033|       0.0000|       0.0057|
+|theta_7DiegoAguacate             |       0.0006|       0.0000|       0.0013|
+|tau_5DiegoAguacateCoclePiedras   |       0.0005|       0.0004|       0.0006|
+|tau_6DiegoAguacateCocle          |       0.0004|       0.0003|       0.0005|
+|tau_7DiegoAguacate               |       0.0003|       0.0002|       0.0003|
+|M_Cocle..DiegoAguacate           |       0.3697|       0.0000|       1.1603|
+|M_DiegoAguacate..Cocle           |       0.1267|       0.0000|       0.3783|
+|lnL                              | -194643.0810| -194750.2270| -194536.0750|
+
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.00| 27335.03|
+|theta_2Aguacate                  |        1.00| 30343.81|
+|theta_3Cocle                     |        1.00| 18265.94|
+|theta_4Piedras                   |        1.02|  6981.64|
+|theta_5DiegoAguacateCoclePiedras |        1.00|  4699.24|
+|theta_6DiegoAguacateCocle        |        1.01|  9367.43|
+|theta_7DiegoAguacate             |        1.03|  1442.22|
+|tau_5DiegoAguacateCoclePiedras   |        1.02|   692.75|
+|tau_6DiegoAguacateCocle          |        1.02|  3875.29|
+|tau_7DiegoAguacate               |        1.01|  5446.96|
+|M_Piedras..DiegoAguacate         |        1.01|  4384.15|
+|M_DiegoAguacate..Piedras         |        1.02|  2763.44|
+|lnL                              |        1.07| 11936.99|
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0016|       0.0014|       0.0018|
+|theta_2Aguacate                  |       0.0019|       0.0017|       0.0022|
+|theta_3Cocle                     |       0.0021|       0.0018|       0.0024|
+|theta_4Piedras                   |       0.0004|       0.0003|       0.0005|
+|theta_5DiegoAguacateCoclePiedras |       0.0016|       0.0013|       0.0019|
+|theta_6DiegoAguacateCocle        |       0.0040|       0.0027|       0.0055|
+|theta_7DiegoAguacate             |       0.0006|       0.0001|       0.0013|
+|tau_5DiegoAguacateCoclePiedras   |       0.0005|       0.0005|       0.0007|
+|tau_6DiegoAguacateCocle          |       0.0003|       0.0003|       0.0003|
+|tau_7DiegoAguacate               |       0.0003|       0.0002|       0.0003|
+|M_Piedras..DiegoAguacate         |       0.0333|       0.0000|       0.0932|
+|M_DiegoAguacate..Piedras         |       0.2491|       0.0000|       0.5939|
+|lnL                              | -194628.8686| -194728.6880| -194532.2350|
+
+|Parameter                        | Gelman_Rhat|      ESS|
+|theta_1Diego                     |        1.00| 28288.15|
+|theta_2Aguacate                  |        1.00| 34023.26|
+|theta_3Cocle                     |        1.00| 30193.85|
+|theta_4Piedras                   |        1.01| 11496.75|
+|theta_5DiegoAguacateCoclePiedras |        1.03|  4714.03|
+|theta_6DiegoAguacateCocle        |        1.02|  8289.64|
+|theta_7DiegoAguacate             |        1.01|  1442.47|
+|tau_5DiegoAguacateCoclePiedras   |        1.06|   661.05|
+|tau_6DiegoAguacateCocle          |        1.00|  6779.57|
+|tau_7DiegoAguacate               |        1.01|  6175.26|
+|M_Piedras..DiegoAguacateCocle    |        1.01|  1718.80|
+|M_DiegoAguacateCocle..Piedras    |        1.01|  2912.77|
+|lnL                              |        1.25|  9580.36|
+
+|Parameter                        |         Mean|    HPD.Lower|    HPD.Upper|
+|theta_1Diego                     |       0.0016|       0.0014|       0.0018|
+|theta_2Aguacate                  |       0.0020|       0.0017|       0.0022|
+|theta_3Cocle                     |       0.0020|       0.0018|       0.0023|
+|theta_4Piedras                   |       0.0004|       0.0003|       0.0004|
+|theta_5DiegoAguacateCoclePiedras |       0.0014|       0.0011|       0.0017|
+|theta_6DiegoAguacateCocle        |       0.0036|       0.0027|       0.0046|
+|theta_7DiegoAguacate             |       0.0003|       0.0000|       0.0008|
+|tau_5DiegoAguacateCoclePiedras   |       0.0007|       0.0006|       0.0008|
+|tau_6DiegoAguacateCocle          |       0.0003|       0.0003|       0.0003|
+|tau_7DiegoAguacate               |       0.0003|       0.0003|       0.0003|
+|M_Piedras..DiegoAguacateCocle    |       0.1237|       0.0001|       0.2880|
+|M_DiegoAguacateCocle..Piedras    |       0.2619|       0.0848|       0.4617|
+|lnL                              | -194620.2429| -194727.1480| -194515.1890|
