@@ -1,0 +1,9 @@
+AMB1320_Ad	down
+AMB1321_Ad	down
+AMB1322_Ad	down
+AMB1323_Am	mid
+AMB1325_Am	mid
+AMB1328_Am	mid
+AMB1330_Am	mid
+AMB1331_Am	mid
+AMB1341_Au	up
