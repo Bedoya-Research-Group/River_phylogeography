@@ -1,7 +1,0 @@
-#NEXUS
-BEGIN TREES;
-	UTREE 1 = ((down: 0.000097, mid: 0.000097)downmid[&height_95%_HPD={0.00008500, 0.00011100}, theta=0.0009093]: 0.001304, up: 0.001402)downmidup[&height_95%_HPD={0.00122200, 0.00158700}, theta=0.1736999];
-END;
-
-[Species tree with tau as branch lengths and theta as labels, for FigTree.
-In FigTree, choose 95%HPD for Node Bars and label for Node Labels]
