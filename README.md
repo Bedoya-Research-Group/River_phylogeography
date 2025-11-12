@@ -169,9 +169,10 @@ See scripts in spatial_gene_flow_gendiv.R
 
 8.3 Phylogenetic inference with Lewis' aquisition bias correction `raxml-ng --all --msa marathrum_for_tree_inference.recode.min82.phy --model GTR+G+ASC_LEWIS --bs-metric fbp --bs-trees autoMRE --threads 10`
 
-
+## 9. MSC-M analyses
+See MSC-M folder for all scripts. Scripts are modified from https://github.com/bpp/bpp-tutorial-geneflow/tree/main/fourth-day/scripts
 
 ## EXTRAS
-8.2. Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
+Down projection preview `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --preview`
 
-8.3. Down projection `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --proj 48,36,20 -a -v`
+Down projection `easySFS.py -i marathrum_colon_filtered_final.recode.vcf -p pops_file.txt  --proj 48,36,20 -a -v`
