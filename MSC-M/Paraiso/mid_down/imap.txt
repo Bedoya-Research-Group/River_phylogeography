@@ -1,0 +1,9 @@
+AMB1366_Pu	up
+AMB1367_Pu	up
+AMB1368_Pu	up
+AMB1372_Pm	mid
+AMB1375_Pm	mid
+AMB1377_Pd	down
+AMB1379_Pd	down
+AMB1380_Pd	down
+AMB1382_Pd	down
