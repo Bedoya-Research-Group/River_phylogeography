@@ -118,7 +118,7 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 
 ## 4. ASSEMBLY OF TE DATA FROM GENOME SKIMMING
 
-4.1 Hybpiper assemble using Target_Sequences_single_exon.fasta.
+4.1 Hybpiper assemble using Target_Sequences_bedoya_afterfilter.fasta.
 
 4.2. Generate consensus sequences with IUPAC ambiguity codes with Hybphaser (e.g.,`bash 1_generate_consensus_sequences.sh -n namelist_all.txt -p /home/abedoya/river_phylogeo/multiexons -o /home/abedoya/river_phylogeo/HybPhaser/MSCM_multiexons`)
 
