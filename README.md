@@ -116,6 +116,9 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 
 `bash admixture.sh`
 
+3.9 Run fastStructure
+`for K in {1..6}; do   structure.py -K $K --input=each_resulting_file_above_bin_plink                --output=each_resulting_file_above_bin_plink_K${K} --cv 5 --format=bed; done`
+
 ## 4. ASSEMBLY OF TE DATA FROM GENOME SKIMMING
 
 4.1 Hybpiper assemble using Target_Sequences_bedoya_afterfilter.fasta.
