@@ -123,12 +123,16 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 `chooseK.py --input=each_resulting_file_from_fastStructure_bin_plink_K*`
 
 3.11 Summary statistics for pops identified
---Only binary SNPs
 
+--Only binary SNPs
 `vcftools --vcf population_vcf.vcf --remove-indels --min-alleles 2 --max-alleles 2 --recode --recode-INFO-all --out population_vcf_filtered_final_bin`
 
 --population-level Fst
-`vcftools --vcf marathrum_panama_filtered_final_bin.recode.vcf --weir-fst-pop diego.txt --weir-fst-pop aguacate.txt --weir-fst-pop cocle.txt --weir-fst-pop paraiso.txt --weir-fst-pop piedra.txt --out overall_fst`
+`vcftools --vcf marathrum_panama_filtered_final_bin.recode.vcf --weir-fst-pop diego.txt --weir-fst-pop aguacate.txt --weir-fst-pop cocle.txt --weir-fst-pop paraiso.txt --weir-fst-pop piedra.txt --out overall_fst` results in my computer
+
+Keep editing here
+Pairwise fst:
+vcftools --vcf marathrum_panama_filtered_final_bin.recode.vcf --weir-fst-pop chiriqui.txt --weir-fst-pop cocle.txt --out chiriqui_cocle_fst
 
 ---
 vcftools --vcf marathrum_diego_filtered_final.recode.vcf --remove-indels --min-alleles 2 --max-alleles 2 --recode --recode-INFO-all --out marathrum_diego_filtered_final_bin
