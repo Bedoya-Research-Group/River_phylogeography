@@ -122,6 +122,18 @@ For Diversity stats (gene flow within rivers) (74 indiv left):
 3.10 Choose K
 `chooseK.py --input=each_resulting_file_from_fastStructure_bin_plink_K*`
 
+3.11 Summary statistics for pops identified
+--Only binary SNPs
+
+`vcftools --vcf population_vcf.vcf --remove-indels --min-alleles 2 --max-alleles 2 --recode --recode-INFO-all --out population_vcf_filtered_final_bin`
+
+--population-level Fst
+`vcftools --vcf marathrum_panama_filtered_final_bin.recode.vcf --weir-fst-pop diego.txt --weir-fst-pop aguacate.txt --weir-fst-pop cocle.txt --weir-fst-pop paraiso.txt --weir-fst-pop piedra.txt --out overall_fst`
+
+---
+vcftools --vcf marathrum_diego_filtered_final.recode.vcf --remove-indels --min-alleles 2 --max-alleles 2 --recode --recode-INFO-all --out marathrum_diego_filtered_final_bin
+vcftools --vcf marathrum_diego_filtered_final_bin.recode.vcf --hardy --out hardy_diego_bin
+
 ## 4. ASSEMBLY OF TE DATA FROM GENOME SKIMMING
 
 4.1 Hybpiper assemble using Target_Sequences_bedoya_afterfilter.fasta.
